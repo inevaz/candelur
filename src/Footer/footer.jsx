@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
-const footer = () => {
+const Footer = () => {
   return (
     <div className='bg-black h-full w-full flex flex-col gap-7 px-[20dvw] py-[12dvh]'>
         <section className='flex items-center justify-between pt-12'>
@@ -50,10 +50,10 @@ const footer = () => {
             </div>
         </section>
         <hr className='bg-white'></hr>
-        <div className='flex w-full justify-end'><p className='text-white text-bold'>© 2025 Candelure S.A. Todos los derechos reservados.</p></div>
+        <div className='flex w-full justify-end'><p className='text-white text-bold'>© 2025 Candelur S.A. Todos los derechos reservados.</p></div>
         
     </div>
   )
 }
 
-export default footer
+export default Footer
