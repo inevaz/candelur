@@ -1,0 +1,22 @@
+/* Estilos globales básicos */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #CECECE;
+}
+
+/* Quitar subrayado de enlaces */
+a {
+  text-decoration: none;
+}
+
+/* Estilos para tema oscuro */
+.dark body {
+  background-color: #3A3A3A;
+  color: #f1f1f1;
+}
