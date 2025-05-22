@@ -34,17 +34,18 @@ const Navbar = () => {
     <nav className="bg-white dark:bg-black shadow-md fixed w-full z-10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          {/*logo*/}          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center">
+          {/*logo*/}          
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center h-[100px] w-[100px]">
               <img 
                 src="/img/candelur_logo.png" 
                 alt="Candelur Logo" 
-                className="h-10 w-auto block dark:hidden"
+                className="h-[50px] w-[100px] block dark:hidden"
               />
               <img 
                 src="/img/candelur_logo_light_text.png" 
                 alt="Candelur Logo" 
-                className="h-10 w-auto hidden dark:block" 
+                className="h-[50px] w-[98px] hidden dark:block" 
               />            </Link>          
             {/*iconos de nav*/}            <div className="flex ml-19 h-full"><Link 
                 to="/productos" 

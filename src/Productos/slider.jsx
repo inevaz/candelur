@@ -3,67 +3,64 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper/modules";
-import { RxArrowTopRight } from "react-icons/rx";
-
-import img1 from "../../img/Plataforma-05.jpeg";
-import img2 from "../../img/Elevador-04.jpeg";
-import img3 from "../../img/Camion-Grua-23.jpeg";
-
-const ImageTrackList = [
-  { id: 1, src: img1, alt: "Plataforma" },
-  { id: 2, src: img2, alt: "Elevador" },
-  { id: 3, src: img3, alt: "Camión Grua" },
-];
+import { ServiceData } from "../index";
 
 const Slider = () => {
   return (
-    <div className="flex items-center justify-center flex-col h-screen bg-[#CECECE] dark:bg-[#3A3A3A]">
+    <div className="flex items-center justify-center w-full flex-col px-[15dvh] py-12">
+      {/* Carrusel */}
       <Swiper
-        breakpoints={{
-          // cuando el ancho es >= 340px
-          340: {
-            slidesPerView: 2,
-            spaceBetween: 35,
-          },
-          // cuando el ancho es >= 700px
-          700: {
-            slidesPerView: 3,
-            spaceBetween: 15,
-          },
-        }}
-        freeMode={true}
+        slidesPerView={1.2}
+        centeredSlides={true}
+        spaceBetween={30}
+        loop={true}
+        modules={[FreeMode, Pagination]} // asegúrate de incluir Pagination aquí
+        className="w-full h-[600px] mySwiper"
         pagination={{
+          el: ".custom-pagination", // el contenedor personalizado
           clickable: true,
         }}
-        modules={[FreeMode, Pagination]}
-        className="max-w-[90%] lg:max-w-[80%]"
       >
-        {ImageTrackList.map((img) => (
-          <SwiperSlide
-            key={img.id}
-          >
-            <div
-              className="flex flex-col gap-6 group relative shadow-lg text-white rounded-xl px-6 py-8 h-[250px] w-[215px] lg:h-[400px] lg:w-[350px] overflow-hidden cursor-pointer"
-              style={{
-                backgroundImage: `url(${img.src})`
-              }}
-            >
+        {ServiceData.map((img) => (
+          <SwiperSlide key={img.title}>
+            <div className="h-full w-full group rounded-xl overflow-hidden shadow-lg cursor-pointer relative">
+              {/* Imagen principal */}
               <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${img.src})` }}
-              />
-              <div className="absolute inset-0 bg-black opacity-10 group´-hover:opacity-50" />
-              <div className="relative flex flex-col gap-3">
-              <img.icon className="text-blue-600 group-hover:text-blue400 w-[32px] h-[32px]"/>
-              <h1 className="text-xl lg:text-2xl" >
-                {img.title}
-              </h1>
-              <p className="lg:text-[18px]">{img.content}</p>
+                className="absolute inset-0 rounded-xl bg-center transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  backgroundImage: `url(${img.backgroundImage})`,
+                  backgroundSize: img.backgroundStyle || "cover",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+
+              {/* Overlay oscuro con contenido */}
+              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300 flex flex-col justify-end p-6 rounded-xl">
+                <div className={img.infoStyle}>
+                  <h1 className="text-xl font-bold text-white">{img.title}</h1>
+                  <p className="text-sm font-light text-white">{img.content}</p>
+                </div>
+                
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Paginación personalizada fuera del carrusel */}
+      <div className="cursor-pointer custom-pagination flex pt-4 gap-2">
+  {ServiceData.map((_, index) => (
+    <div
+      key={index}
+      className="m-2 p-2 border border-black border-2 rounded-full flex items-center justify-center"
+    >
+      <div
+        className="w-2.5 h-2.5 rounded-full bg-black opacity-50 transition-opacity duration-300 cursor-pointer"
+        onClick={() => swiperRef.current.swiper.slideTo(index)}
+      ></div>
+    </div>
+  ))}
+</div>
     </div>
   );
 };

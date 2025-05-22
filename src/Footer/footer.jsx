@@ -7,7 +7,7 @@ const Footer = () => {
         <div className='bg-black h-full w-full flex flex-col gap-7 px-[20dvw] py-[12dvh]'>
             <section className='flex items-end gap-2 justify-between pt-12'>
 
-                <img className='h-auto w-max-[200px]' src={"../../img/candelur_logo_light_text.png"} alt="Candelur" />
+                <img className='w-[200px] h-auto' src={"../img/candelur_logo_light_text.png"} alt="Candelur" />
 
                 <div className='h-[50px] text-white font-bold flex items-center py-0 px-4 gap-2 rounded-4xl border-white border-2'>
                     <FontAwesomeIcon className='text-white h-[20px] w-[20px] ' icon={faLocationDot} />
