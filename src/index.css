@@ -22,12 +22,12 @@ a {
 }
 
 .custom-pagination .swiper-pagination-bullet {
-  background-color: #000000 !important; /* Color personalizado */
+  background-color: #000000; /* Color personalizado */
   width: 15px;
   height: 15px;
 }
 
 .custom-pagination .swiper-pagination-bullet-active {
-  background-color: #883c3c !important; /* Color activo */
+  background-color: #883c3c; /* Color activo */
   
 }

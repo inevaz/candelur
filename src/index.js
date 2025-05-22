@@ -5,29 +5,30 @@ import {
   RxReader,
 } from "react-icons/rx";
 
+// ServiceData.js
 export const ServiceData = [
   {
     icon: RxCrop,
     title: "Development",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Lorem ipsum dolor sit amet...",
     backgroundImage: "/img/Camion-Grua-23.jpeg",
-    backgroundStyle: "100% 113%", // estilo personalizado para esta imagen
-    infoStyle: "absolute top-6 right-10", 
+    backgroundStyle: "100% 113%",
+    infoVariant: "top-right", // nombre de estilo predefinido
   },
   {
     icon: RxPencil2,
     title: "Branding",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Lorem ipsum dolor sit amet...",
     backgroundImage: "/img/Plataforma-05.jpeg",
-    backgroundStyle: "100% 107%", // diferente estilo para esta
-    infoStyle: "absolute top-[50%] right-10",
+    backgroundStyle: "100% 107%",
+    infoVariant: "center-right",
   },
   {
     icon: RxDesktop,
     title: "Design",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Lorem ipsum dolor sit amet...",
     backgroundImage: "/img/Elevador-04.jpeg",
-    backgroundStyle: "cover", // combinación de valores
-    infoStyle: "absolute top-[30%] left-10",
+    backgroundStyle: "cover",
+    infoVariant: "left-center",
   }
 ];
