@@ -14,7 +14,8 @@ const Slider = () => {
     "left-center": "absolute top-[30%] left-10",
   };
   return (
-    <div className="flex items-center justify-center w-full flex-col px-[15dvh] py-12">
+    <div className="flex items-center justify-center w-full flex-col lg:px-[3dvh] md:px-[2dvh] sm:px-[0dvh]
+    py-12">
       {/* Carrusel */}
       <Swiper
         ref={swiperRef}
