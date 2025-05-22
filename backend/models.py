@@ -1,4 +1,4 @@
-# Importaciones
+#librerias
 from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, Text, JSON, DateTime
 from sqlalchemy.orm import relationship
 from database import Base
@@ -10,12 +10,13 @@ class Maquinaria(Base):
     
     #campos comunes para todas las maquinarias
     id = Column(Integer, primary_key=True, index=True)
-    tipo = Column(String, index=True)  # "elevador", "plataforma", "camion_grua"
+    tipo = Column(String, index=True)  #si es elevador o grua etc
     modelo = Column(String, nullable=False)
     marca = Column(String, nullable=False)
     anio_fabricacion = Column(Integer, nullable=True)
     descripcion = Column(Text)
-    
+    ficha_tecnica_path = Column(String)  #ruta a la ficha tecnica
+
     #relaciones
     imagenes = relationship("Imagen", back_populates="maquinaria", cascade="all, delete-orphan")
     
@@ -53,7 +54,7 @@ class Plataforma(Maquinaria):
     
     #ejemplos de campos (dsp rellenamos bien dependiendo de los pdfs de las maquinas)
     altura_trabajo = Column(Float, nullable=False)  #en metros
-    altura_plataforma = Column(Float, nullable=False)  #en metros
+    altura_plataforma = Column(Float, nullable=True)
     alcance_horizontal = Column(Float)  #en metros
     capacidad_cesta = Column(Float, nullable=False)  #n kg
     ancho_maquina = Column(Float)  #en metros
