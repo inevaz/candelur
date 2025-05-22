@@ -1,5 +1,5 @@
 import React from 'react'
-import Slider from '../Productos/slider'
+import Slider from './slider'
 
 const home = () => {
   return (
