@@ -36,16 +36,16 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           {/*logo*/}          
           <div className="flex items-center">
-            <Link to="/" className="flex items-center h-[100px] w-[100px]">
+            <Link to="/" className="flex items-center h-full w-full">
               <img 
                 src="/img/candelur_logo.png" 
                 alt="Candelur Logo" 
-                className="h-[50px] w-[100px] block dark:hidden"
+                className="h-[50px] w-[113px] block dark:hidden"
               />
               <img 
                 src="/img/candelur_logo_light_text.png" 
                 alt="Candelur Logo" 
-                className="h-[50px] w-[98px] hidden dark:block" 
+                className="h-[50px] w-[112px] hidden dark:block" 
               />            </Link>          
             {/*iconos de nav*/}            <div className="flex ml-19 h-full"><Link 
                 to="/productos" 

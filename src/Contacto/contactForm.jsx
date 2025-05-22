@@ -28,7 +28,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4 border rounded-lg">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4 border border-black rounded-lg">
       {/* Primer nombre y apellido */}
       <div className="flex gap-2 mb-4">
         <input
@@ -66,7 +66,7 @@ const ContactForm = () => {
         <input
           type="tel"
           name="contactNumber"
-          placeholder="contact number"
+          placeholder="Telefono"
           value={formData.contactNumber}
           onChange={handleChange}
           className="w-full px-2 py-1 border rounded"
@@ -77,7 +77,7 @@ const ContactForm = () => {
       <div className="mb-4">
         <textarea
           name="message"
-          placeholder="message"
+          placeholder="Escribe tu mensaje"
           value={formData.message}
           onChange={handleChange}
           rows={4}
@@ -90,7 +90,7 @@ const ContactForm = () => {
         type="submit"
         className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-800 transition duration-150"
       >
-        submit
+        Enviar
       </button>
     </form>
   );

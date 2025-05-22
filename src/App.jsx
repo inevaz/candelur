@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import '@fontsource/krub/400.css'; // Peso normal
+import '@fontsource/krub/700.css'; // Negrita (opcional)
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import Footer from './Footer/footer.jsx'

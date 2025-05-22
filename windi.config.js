@@ -5,7 +5,14 @@ export default {
     include: ['index.html', 'src/**/*.{vue,html,jsx,tsx}'],
   },
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ['Krub', 'sans-serif'],
+    },
+    extend: {
+      fontFamily: {
+      krub: ['Krub', 'sans-serif'],
+    },
+    },
   },
   plugins: [],
 }
