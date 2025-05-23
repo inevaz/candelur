@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import Lightbox from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
+import React, { useEffect, useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const Galeria = () => {
   const [allImages, setAllImages] = useState([]);
   const [filteredImages, setFilteredImages] = useState([]);
-  const [filter, setFilter] = useState('Todos');
+  const [filter, setFilter] = useState("Todos");
 
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const opciones = [
+    { value: "Todos", label: "Todo" },
+    { value: "Camion", label: "Camiones" },
+    { value: "Elevador", label: "Elevadores" },
+    { value: "Plataforma", label: "Plataformas" },
+  ];
 
   useEffect(() => {
     const importImages = async () => {
-      const modules = import.meta.glob('../galery/*.{jpeg,jpg}');
+      const modules = import.meta.glob("../galery/*.{jpeg,jpg}");
       const entries = Object.entries(modules);
 
       const imageData = await Promise.all(
         entries.map(async ([path, importFn]) => {
           const mod = await importFn();
-          const fileName = path.split('/').pop();
+          const fileName = path.split("/").pop();
           return { src: mod.default, name: fileName };
         })
       );
@@ -30,34 +37,52 @@ const Galeria = () => {
     importImages();
   }, []);
 
-  const handleFilter = (e) => {
-    const type = e.target.value;
-    setFilter(type);
-
-    if (type === 'Todos') {
-      setFilteredImages(allImages);
-    } else {
-      const filtered = allImages.filter((img) =>
-        img.name.toLowerCase().startsWith(type.toLowerCase())
-      );
-      setFilteredImages(filtered);
-    }
-  };
-
   return (
-    <div className="px-[15dvh] py-10 flex flex-col items-start">
+    <div className="px-[15dvh] py-10 flex gap-6 flex-col items-start">
       {/* Dropdown */}
-      <div className="mb-6 text-center">
-        <select
-          value={filter}
-          onChange={handleFilter}
-          className="border border-gray-300 rounded-md px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="Todos">Todo</option>
-          <option value="Camion">Camiones</option>
-          <option value="Elevador">Elevadores</option>
-          <option value="Plataforma">Plataformas</option>
-        </select>
+      <div className="flex">
+        <div className="relative">
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className={`flex items-center gap-2 px-4 py-2 border border-gray-300 ${
+              dropdownOpen ? "rounded-t-md" : "rounded-md"
+            } bg-white dark:text-white`}
+          >
+            <span className="font-bold">{filter === "Todos" ? "Filtrar" : filter}</span>
+
+            <img src="/img/filter.png" alt="Filtro" className="w-6 h-6" />
+          </button>
+
+          {dropdownOpen && (
+            <ul className="absolute z-10 bg-white dark:bg-gray-800 border border-gray-300 rounded-b-md rounded-tr-md shadow-lg w-48">
+              {opciones.map((opcion) => (
+                <li
+                  key={opcion.value}
+                  onClick={() => {
+                    setFilter(opcion.value);
+                    setDropdownOpen(false);
+
+                    if (opcion.value === "Todos") {
+                      setFilteredImages(allImages);
+                    } else {
+                      const filtered = allImages.filter((img) =>
+                        img.name
+                          .toLowerCase()
+                          .startsWith(opcion.value.toLowerCase())
+                      );
+                      setFilteredImages(filtered);
+                    }
+                  }}
+                  className={`px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                    filter === opcion.value ? "font-bold text-red-600" : ""
+                  }`}
+                >
+                  {opcion.label}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       {/* Galería */}
