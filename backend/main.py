@@ -1,15 +1,11 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine
+from database import SessionLocal
 import models
+import os
 
-# Crear todas las tablas en la base de datos si no existen
-models.Base.metadata.create_all(bind=engine)
-
-# Inicializar la aplicación FastAPI
 app = FastAPI()
 
-# Dependencia para obtener la sesión de la base de datos en cada request
 def get_db():
     db = SessionLocal()
     try:
@@ -17,18 +13,29 @@ def get_db():
     finally:
         db.close()
 
-# Endpoint de prueba para ver si el servidor funciona
-@app.get("/ping")
-def ping():
-    return {"message": "pong"}
-
-# Endpoint para listar todas las maquinarias (aunque estén vacías)
 @app.get("/maquinarias")
-def listar_maquinarias(db: Session = Depends(get_db)):
-    # Consulta la tabla base "maquinarias"
+def get_maquinarias(db: Session = Depends(get_db)):
     return db.query(models.Maquinaria).all()
+@app.get("/ficha_tecnica/{maquinaria_id}")
+def get_ficha_tecnica(maquinaria_id: int):
+    db = SessionLocal()
+    maquinaria = db.query(models.Maquinaria).filter(models.Maquinaria.id == maquinaria_id).first()
+    db.close()
+    if not maquinaria or not getattr(maquinaria, "ficha_tecnica_path", None):
+        raise HTTPException(status_code=404, detail="Ficha técnica no encontrada")
+    ficha_path = getattr(maquinaria, "ficha_tecnica_path", None)
+    if not ficha_path or not os.path.isfile(ficha_path):
+        raise HTTPException(status_code=404, detail="Archivo PDF no encontrado")
+    # Devuelve un mensaje de texto simple en vez de descargar el PDF
+    return {"mensaje": f"Ficha técnica encontrada: {os.path.basename(ficha_path)}"}
+@app.get("/imagenes/{maquinaria_id}")
+def get_imagenes(maquinaria_id: int):
+    db = SessionLocal()
+    imagenes = db.query(models.Imagen).filter(models.Imagen.maquinaria_id == maquinaria_id).all()
+    db.close()
+    if not imagenes:
+        raise HTTPException(status_code=404, detail="No hay imágenes para esta maquinaria")
+    # Devuelve la lista de URLs de las imágenes asociadas
+    return {"imagenes": [img.url for img in imagenes]}
 
-@app.get("/")
-def read_root():
-    return {"message": "API funcionando correctamente"}
-
+#para probar http://127.0.0.1:8000/ficha_tecnica/3 o la que sea
