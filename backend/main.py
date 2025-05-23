@@ -3,8 +3,28 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 import models
 import os
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+app.mount("/img", StaticFiles(directory="img"), name="img")
+app.mount("/fichas_tecnicas", StaticFiles(directory="fichas_tecnicas"), name="fichas_tecnicas")
+
+# Configuración de CORS
+origins = [
+    "http://localhost:5173/productos"  #Frontend (Vite o React)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Permitir estos orígenes
+    allow_credentials=True,
+    allow_methods=["*"],    # Permitir todos los métodos (GET, POST, etc.)
+    allow_headers=["*"],    # Permitir todas las cabeceras
+)
+
+
 
 def get_db():
     db = SessionLocal()
