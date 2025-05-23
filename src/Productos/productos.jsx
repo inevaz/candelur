@@ -82,7 +82,7 @@ const Productos = () => {
   return (
     <div className="py-12 flex flex-col gap-6 items-center px-[25dvh]">
       <div className="flex items-center w-full justify-between">
-        <h2 className="text-2xl font-bold mt-6">Catálogo de Maquinaria</h2>
+        <h2 className="text-2xl font-bold mt-6 mb-5">Catálogo de Maquinaria</h2>
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -115,24 +115,21 @@ const Productos = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9">
         {maquinariasFiltradas.map((maquina) => (
           <div className="flex flex-col items-center gap-1" key={maquina.id}>
             <h3 className="text-md font-bold text-gray-800 dark:text-gray-400">
-              {maquina.marca} - {maquina.modelo}
+              {maquina.modelo}
             </h3>
             <StyledWrapper>
               <div className="card">
-                <h1 className="capitalize dark:text-white text-xl">
-                  {maquina.tipo.replace("_", " ")}
-                </h1>
                 {/* Imágenes */}
                 <div className="imagenes mt-2">
                   {imagenesPorMaquina[maquina.id]?.length > 0 ? (
                     <img
                       src={`/api/${imagenesPorMaquina[maquina.id][0]}`}
                       alt={`Imagen de ${maquina.modelo}`}
-                      className="w-full h-auto max-h-40 object-cover rounded-md"
+                      className="w-full h-auto max-h-50 object-cover rounded-md"
                     />
                   ) : (
                     <p className="text-gray-500 text-sm">
@@ -172,14 +169,14 @@ const StyledWrapper = styled.div`
     box-sizing: border-box;
     width: 190px;
     height: 254px;
-    background: rgba(217, 217, 217, 0.58);
-    border: 1px solid white;
+    background: rgba(255, 255, 255, 0.58);
+    border: 4px solid rgba(166, 166, 166, 0.45);
     box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
     backdrop-filter: blur(6px);
     border-radius: 17px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.5s;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: space-between;

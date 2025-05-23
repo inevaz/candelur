@@ -1,16 +1,14 @@
-
-
 const Card = ({ maquinarias }) => {
   return (
-    
+    <StyledWrapper>
       <div className="card">
         {maquinarias.map((maquina) => (
           <li
             key={maquina.id}
-            className="border rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow"
+            className="border rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow"
           >
             <h3 className="text-xl font-semibold text-gray-800">
-              {maquina.marca} - {maquina.modelo}
+              {maquina.modelo}
             </h3>
             <p className="text-gray-600 capitalize">
               Tipo: {maquina.tipo.replace("_", " ")}

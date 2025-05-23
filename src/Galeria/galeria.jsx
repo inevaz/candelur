@@ -38,7 +38,7 @@ const Galeria = () => {
   }, []);
 
   return (
-    <div className="px-[15dvh] py-10 flex gap-6 flex-col items-start">
+    <div className="px-[15dvh] py-15 flex gap-6 flex-col items-start">
       {/* Dropdown */}
       <div className="flex">
         <div className="relative">
