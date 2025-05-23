@@ -28,16 +28,16 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4 border border-black rounded-lg">
+    <form onSubmit={handleSubmit} className="flex flex-col p-4 border border-black bg-white rounded-lg">
       {/* Primer nombre y apellido */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-2">
         <input
           type="text"
           name="firstName"
           placeholder="Nombre"
           value={formData.firstName}
           onChange={handleChange}
-          className="px-2 py-1 border rounded w-full"
+          className="px-2 py-1 border-2 rounded h-[50px] w-full"
         />
         <input
           type="text"
@@ -45,50 +45,50 @@ const ContactForm = () => {
           placeholder="Apellido"
           value={formData.lastName}
           onChange={handleChange}
-          className="px-2 py-1 border rounded w-full"
+          className="px-2 py-1 border-2 rounded w-full"
         />
       </div>
 
       {/* Email */}
-      <div className="mb-4">
+      <div className="mb-2">
         <input
           type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full px-2 py-1 border rounded"
+          className="w-full px-2 h-[50px] py-1 border-2 rounded"
         />
       </div>
 
       {/* Contact number */}
-      <div className="mb-4">
+      <div className="mb-2">
         <input
           type="tel"
           name="contactNumber"
           placeholder="Telefono"
           value={formData.contactNumber}
           onChange={handleChange}
-          className="w-full px-2 py-1 border rounded"
+          className="w-full px-2 h-[50px] py-1 border-2 rounded"
         />
       </div>
 
       {/* Message */}
-      <div className="mb-4">
+      <div className="mb-1">
         <textarea
           name="message"
           placeholder="Escribe tu mensaje"
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="w-full px-2 py-1 border rounded resize-none"
+          className="w-full h-[125px] px-2 py-1 border-2 rounded resize-none"
         ></textarea>
       </div>
 
       {/* Botón Submit */}
       <button
         type="submit"
-        className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-800 transition duration-150"
+        className="w-full px-4 py-2 bg-[#e31e24] text-white rounded hover:bg-red-800 transition duration-150"
       >
         Enviar
       </button>

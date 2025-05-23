@@ -54,7 +54,7 @@ const Galeria = () => {
           className="border border-gray-300 rounded-md px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="Todos">Todo</option>
-          <option value="Camion">Camiónes</option>
+          <option value="Camion">Camiones</option>
           <option value="Elevador">Elevadores</option>
           <option value="Plataforma">Plataformas</option>
         </select>
