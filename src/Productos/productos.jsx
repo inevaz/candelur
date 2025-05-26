@@ -192,12 +192,12 @@ const Productos = () => {
             <StyledWrapper>
               <div className="card">
                 {/* Imágenes */}
-                <div className="w-full h-full">
+                <div className="w-full h-full flex flex-col items-center justify-center">
                   {imagenesPorMaquina[maquina.id]?.length > 0 ? (
                     <img
                       src={`/api/${imagenesPorMaquina[maquina.id][0]}`}
                       alt={`Imagen de ${maquina.modelo}`}
-                      className="h-full max-h-auto w-full"
+                      className="h-full max-h-[250px] max-w-[240px] p-2"
                     />
                   ) : (
                     <p className="text-gray-500 text-sm">
