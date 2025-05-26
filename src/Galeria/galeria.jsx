@@ -16,6 +16,35 @@ const Galeria = () => {
     { value: "Elevador", label: "Elevadores" },
     { value: "Plataforma", label: "Plataformas" },
   ];
+  const [isDark, setIsDark] = useState(false);
+
+  // Detectar si el modo oscuro está activo al cargar
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    const initialDark = htmlElement.classList.contains("dark");
+    setIsDark(initialDark);
+
+    // Observar cambios en las clases del <html>
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          const currentDark = htmlElement.classList.contains("dark");
+          if (currentDark !== isDark) {
+            setIsDark(currentDark);
+          }
+        }
+      });
+    });
+
+    observer.observe(htmlElement, {
+      attributes: true,
+    });
+
+    return () => observer.disconnect();
+  }, [isDark]);
 
   useEffect(() => {
     const importImages = async () => {
@@ -44,17 +73,17 @@ const Galeria = () => {
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className={`flex items-center gap-2 px-4 py-2 border border-gray-300 ${
+            className={`flex items-center gap-2 px-4 py-2 ${
               dropdownOpen ? "rounded-t-md" : "rounded-md"
-            } bg-white dark:text-white`}
+            } bg-white dark:text-white dark:bg-black`}
           >
             <span className="font-bold">{filter === "Todos" ? "Filtrar" : filter}</span>
 
-            <img src="/img/filter.png" alt="Filtro" className="w-6 h-6" />
+            <img src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"} alt="Filtro" className="w-6 h-6 text-white" />
           </button>
 
           {dropdownOpen && (
-            <ul className="absolute z-10 bg-white dark:bg-gray-800 border border-gray-300 rounded-b-md rounded-tr-md shadow-lg w-48">
+            <ul className="absolute z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-48">
               {opciones.map((opcion) => (
                 <li
                   key={opcion.value}

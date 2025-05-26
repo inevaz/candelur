@@ -40,12 +40,12 @@ const Navbar = () => {
               <img 
                 src="/img/candelur_logo.png" 
                 alt="Candelur Logo" 
-                className="h-[50px] w-[113px] block dark:hidden"
+                className="h-[50px] w-[119px] block dark:hidden"
               />
               <img 
                 src="/img/candelur_logo_light_text.png" 
                 alt="Candelur Logo" 
-                className="h-[50px] w-[112px] hidden dark:block" 
+                className="h-[50px] w-[117px] hidden dark:block" 
               />            </Link>          
             {/*iconos de nav*/}            <div className="flex ml-19 h-full"><Link 
                 to="/productos" 

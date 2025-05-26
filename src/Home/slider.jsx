@@ -1,34 +1,56 @@
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper/modules";
 import { ServiceData } from "../index";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   const swiperRef = useRef(null);
   const infoStyles = {
-    "top-right": "absolute top-6 right-10",
-    "center-right": "absolute top-[50%] right-10 transform -translate-y-1/2",
-    "left-center": "absolute top-[30%] left-10",
+    "top-right": "absolute top-20 right-20",
+    "center-right": "absolute top-[20%] right-[75%] transform -translate-y-1/2",
+    "left-center": "absolute top-[14%] left-[5%]",
   };
+
+  const navigate = useNavigate();
+
+  const handleFilterClick = (content) => {
+    navigate("/productos", { state: { filtroInicial: content } });
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (swiperRef.current && swiperRef.current.swiper) {
+        swiperRef.current.swiper.update(); // 👈 forza a recalcular
+      }
+    }, 100); // un delay pequeño ayuda cuando hay animaciones iniciales o layout shifting
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="flex items-center justify-center w-full flex-col lg:px-[3dvh] md:px-[2dvh] sm:px-[0dvh]
-    py-12">
+    <div
+      className="flex items-center justify-center w-full flex-col lg:px-[3dvh] md:px-[2dvh] sm:px-[0dvh]
+    py-12"
+    >
       {/* Carrusel */}
       <Swiper
         ref={swiperRef}
         slidesPerView={1.2}
-        centeredSlides={true}
         spaceBetween={30}
-        loop={true}
+        centeredSlides={true}
+        initialSlide={1}
         modules={[FreeMode, Pagination]}
-        className="w-full h-[600px] mySwiper"
+        className="w-full h-[660px] mySwiper"
         pagination={{
           el: ".custom-pagination",
           clickable: true,
         }}
+        observeParents={true}
+        observer={true}
       >
         {ServiceData.map((img) => (
           <SwiperSlide key={img.title}>
@@ -44,11 +66,21 @@ const Slider = () => {
               ></div>
 
               {/* Overlay oscuro con contenido */}
-              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300 flex flex-col justify-end p-6 rounded-xl">
-                <div className={infoStyles[img.infoVariant]}>
-                  <h1 className="text-xl font-bold text-white">{img.title}</h1>
-                  <p className="text-sm font-light text-white">{img.content}</p>
-                </div>
+                <div className={`${infoStyles[img.styles]} flex flex-col gap-2 items-center justify-center`}>
+                  <h1 className="text-5xl font-bold text-white">
+                      {img.title}
+                    </h1>
+                  <Link
+                    to="/productos"
+                    state={{
+                      filtro: img.filter.toLowerCase().replace(/\s/g, "_"),
+                    }}
+                    className="w-full"
+                  >
+                    <div className="bg-white text-center text-black text-md w-full rounded-full p-1 font-semibold hover:bg-red-600 hover:text-white">
+                      Ver productos
+                    </div>
+                  </Link>
               </div>
             </div>
           </SwiperSlide>

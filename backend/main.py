@@ -1,20 +1,24 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from database import SessionLocal
 import models
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
+import smtplib
+from email.mime.text import MIMEText
+from textwrap import dedent
 
 app = FastAPI()
 
-app.mount("/img", StaticFiles(directory="img"), name="img")
-app.mount("/fichas_tecnicas", StaticFiles(directory="fichas_tecnicas"), name="fichas_tecnicas")
-
 # Configuración de CORS
 origins = [
-    "http://localhost:5173/productos"  #Frontend (Vite o React)
+    "http://localhost:5173",  # Origen del frontend
 ]
+
+app.mount("/img", StaticFiles(directory="img"), name="img")
+app.mount("/fichas_tecnicas", StaticFiles(directory="fichas_tecnicas"), name="fichas_tecnicas")
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,8 +28,35 @@ app.add_middleware(
     allow_headers=["*"],    # Permitir todas las cabeceras
 )
 
+@app.post("/contact")
+async def send_contact_form(request: Request):
+    form_data = await request.json()
+    print("Datos recibidos:", form_data)
 
+    sender_email = form_data.get("email", "no-reply@example.com")
+    receiver_email = "info@candelur.com.uy"
 
+    # Crear el cuerpo del mensaje
+    msg = MIMEText(f"""
+        Nombre: {form_data.get('firstName', '')} {form_data.get('lastName', '')}
+        Email: {form_data.get('email', '')}
+        Teléfono: {form_data.get('contactNumber', '')}
+        Mensaje:
+        {form_data.get('message', '')}
+    """)
+    msg["Subject"] = "Nuevo contacto desde el sitio web"
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+
+    try:
+        # Enviar a un servidor SMTP local de prueba (no necesita login)
+        with smtplib.SMTP("localhost", 1025) as server:
+            server.sendmail(sender_email, receiver_email, msg.as_string())
+        return JSONResponse({"success": True, "message": "Correo simulado enviado correctamente"})
+    except Exception as e:
+        print("Error al enviar correo:", str(e))
+        return JSONResponse({"success": False, "message": f"Error: {str(e)}"}, status_code=500)
+    
 def get_db():
     db = SessionLocal()
     try:
