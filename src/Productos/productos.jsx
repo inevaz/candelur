@@ -1,14 +1,61 @@
 // Productos.jsx
 import { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const Productos = () => {
   const [maquinarias, setMaquinarias] = useState([]);
   const [imagenesPorMaquina, setImagenesPorMaquina] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+  const filtroDesdeURL = searchParams.get("tipo");
   const [filtroTipo, setFiltroTipo] = useState("todos");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    if (filtroDesdeURL) {
+      setFiltroTipo(filtroDesdeURL);
+    }
+  }, [filtroDesdeURL]);
+
+  useEffect(() => {
+    if (location.state?.filtro) {
+      setFiltroTipo(location.state.filtro);
+    }
+  }, [location.state]);
+
+  // Detectar si el modo oscuro está activo al cargar
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    const initialDark = htmlElement.classList.contains("dark");
+    setIsDark(initialDark);
+
+    // Observar cambios en las clases del <html>
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          const currentDark = htmlElement.classList.contains("dark");
+          if (currentDark !== isDark) {
+            setIsDark(currentDark);
+          }
+        }
+      });
+    });
+
+    observer.observe(htmlElement, {
+      attributes: true,
+    });
+
+    return () => observer.disconnect();
+  }, [isDark]);
 
   // Obtener lista de maquinarias
   useEffect(() => {
@@ -60,10 +107,19 @@ const Productos = () => {
   if (loading) return <p>Cargando maquinaria...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
-  const maquinariasFiltradas =
-    filtroTipo === "todos"
-      ? maquinarias
-      : maquinarias.filter((maquina) => maquina.tipo === filtroTipo);
+  const maquinariasFiltradas = maquinarias.filter((maquina) => {
+    const matchesTipo = filtroTipo === "todos" || maquina.tipo === filtroTipo;
+
+    const searchTermLower = searchTerm.trim().toLowerCase();
+    if (!searchTermLower) return matchesTipo;
+
+    const matchesSearch =
+      maquina.marca.toLowerCase().includes(searchTermLower) ||
+      maquina.modelo.toLowerCase().includes(searchTermLower) ||
+      maquina.tipo.toLowerCase().includes(searchTermLower);
+
+    return matchesTipo && matchesSearch;
+  });
 
   const opciones = [
     { label: "Todos", value: "todos" },
@@ -73,29 +129,41 @@ const Productos = () => {
   ];
 
   const filtroSingular = {
-  todos: "Filtrar",
-  plataforma: "Plataforma",
-  elevador: "Elevador",
-  camion_grua: "Camión grúa",
-};
+    todos: "Filtrar",
+    plataforma: "Plataforma",
+    elevador: "Elevador",
+    camion_grua: "Camión grúa",
+  };
 
   return (
     <div className="py-12 flex flex-col gap-6 items-center px-[25dvh]">
       <div className="flex items-center w-full justify-between">
         <h2 className="text-2xl font-bold mt-6">Catálogo de Maquinaria</h2>
-        <div className="relative">
+        <div className="relative flex gap-4">
+          {/* Campo de búsqueda */}
+          <input
+            type="text"
+            placeholder="Buscar por nombre"
+            className="px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className={`flex items-center gap-2 px-4 py-2 ${dropdownOpen ? "rounded-t-md" : "rounded-md"} bg-white dark:text-white`}
+            className={`flex items-center gap-2 px-4 py-2 ${
+              dropdownOpen ? "rounded-t-md" : "rounded-md"
+            } bg-white dark:text-white  dark:bg-black`}
           >
             <span className="font-bold">{filtroSingular[filtroTipo]}</span>
-
-
-            <img src="/img/filter.png" alt="Filtro" className="w-6 h-6" />
+            <img
+              src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"}
+              alt="Filtro"
+              className="w-6 h-6 text-white"
+            />
           </button>
 
           {dropdownOpen && (
-            <ul className="absolute z-10 bg-white dark:bg-gray-800 border border-gray-300 rounded-b-md rounded-tr-md shadow-lg w-48">
+            <ul className="absolute -right-[81px] top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-48">
               {opciones.map((opcion) => (
                 <li
                   key={opcion.value}
@@ -115,24 +183,21 @@ const Productos = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
         {maquinariasFiltradas.map((maquina) => (
           <div className="flex flex-col items-center gap-1" key={maquina.id}>
             <h3 className="text-md font-bold text-gray-800 dark:text-gray-400">
-              {maquina.marca} - {maquina.modelo}
+              {maquina.modelo}
             </h3>
             <StyledWrapper>
               <div className="card">
-                <h1 className="capitalize dark:text-white text-xl">
-                  {maquina.tipo.replace("_", " ")}
-                </h1>
                 {/* Imágenes */}
-                <div className="imagenes mt-2">
+                <div className="w-full h-full">
                   {imagenesPorMaquina[maquina.id]?.length > 0 ? (
                     <img
                       src={`/api/${imagenesPorMaquina[maquina.id][0]}`}
                       alt={`Imagen de ${maquina.modelo}`}
-                      className="w-full h-auto max-h-40 object-cover rounded-md"
+                      className="h-full max-h-auto w-full"
                     />
                   ) : (
                     <p className="text-gray-500 text-sm">
@@ -148,7 +213,7 @@ const Productos = () => {
                       href={`/api/${maquina.ficha_tecnica_path}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="uppercase text-sm dark:text-white hover:text-[#e31e24] transition duration-150 ease-in-out"
+                      className="uppercase text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out"
                     >
                       Ver ficha técnica
                     </a>
@@ -170,16 +235,16 @@ const Productos = () => {
 const StyledWrapper = styled.div`
   .card {
     box-sizing: border-box;
-    width: 190px;
-    height: 254px;
-    background: rgba(217, 217, 217, 0.58);
-    border: 1px solid white;
+    width: 250px;
+    height: 300px;
+    background: white;
+    border: 4px solid rgba(166, 166, 166, 0.45);
     box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
     backdrop-filter: blur(6px);
     border-radius: 17px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.5s;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: space-between;

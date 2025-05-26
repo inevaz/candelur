@@ -1,5 +1,3 @@
-
-
 const Card = ({ maquinarias }) => {
   return (
     

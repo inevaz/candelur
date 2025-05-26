@@ -8,11 +8,13 @@ import Productos from './Productos/productos.jsx'
 import Galeria from './Galeria/galeria.jsx'
 import Contacto from './Contacto/contacto.jsx'
 import Home from './Home/home.jsx'
+import ScrollToTop from './ScroltoTop.jsx';
 
 function App() {  return (
     <BrowserRouter>
       <div className="w-full flex flex-col bg-[#CECECE] dark:bg-[#3A3A3A]">
         <Navbar/>
+        <ScrollToTop />
         <main className="flex-grow pt-10">
           <Routes>
             <Route path="/" element={<Home />} />
