@@ -63,7 +63,7 @@ const ContactForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex flex-col p-4 border border-black bg-white dark:bg-gray-500 dark:border-white rounded-lg">
+      <form onSubmit={handleSubmit} className="flex flex-col p-4 border border-black bg-white dark:bg-[#8C8C8C] dark:border-0 rounded-lg">
         {/* Nombre y Apellido */}
         <div className="flex gap-2 mb-2">
           <input
@@ -72,7 +72,7 @@ const ContactForm = () => {
             placeholder="Nombre"
             value={formData.firstName}
             onChange={handleChange}
-            className="px-2 py-1 border rounded focus:outline-none focus:ring-1 focus:ring-red-500 h-[50px] dark:bg-gray-500 w-full"
+            className="px-2 py-1 border rounded focus:outline-none focus:ring-1 focus:ring-red-500 h-[50px] dark:bg-[#8C8C8C] w-full text-[#D0D0D0] placeholder-[#D0D0D0] border-[#D0D0D0]"
             required
           />
           <input
@@ -81,7 +81,7 @@ const ContactForm = () => {
             placeholder="Apellido"
             value={formData.lastName}
             onChange={handleChange}
-            className="px-2 py-1 border focus:outline-none focus:ring-1 focus:ring-red-500 rounded w-full dark:bg-gray-500"
+            className="px-2 py-1 border focus:outline-none focus:ring-1 focus:ring-red-500 rounded w-full dark:bg-[#8C8C8C] text-[#D0D0D0] placeholder-[#D0D0D0] border-[#D0D0D0]"
             required
           />
         </div>
@@ -94,7 +94,7 @@ const ContactForm = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-2 h-[50px] focus:outline-none focus:ring-1 focus:ring-red-500 py-1 dark:bg-gray-500 border rounded"
+            className="w-full px-2 h-[50px] focus:outline-none focus:ring-1 focus:ring-red-500 py-1 dark:bg-[#8C8C8C] border rounded text-[#D0D0D0] placeholder-[#D0D0D0] border-[#D0D0D0]"
             required
           />
         </div>
@@ -107,7 +107,7 @@ const ContactForm = () => {
             placeholder="Teléfono"
             value={formData.contactNumber}
             onChange={handleChange}
-            className="w-full px-2 h-[50px] focus:outline-none focus:ring-1 focus:ring-red-500 py-1 dark:bg-gray-500 border rounded"
+            className="w-full px-2 h-[50px] focus:outline-none focus:ring-1 focus:ring-red-500 py-1 dark:bg-[#8C8C8C] border rounded text-[#D0D0D0] placeholder-[#D0D0D0] border-[#D0D0D0]"
             required
           />
         </div>
@@ -120,7 +120,7 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             rows={4}
-            className="w-full h-[125px] px-2 py-1 focus:outline-none focus:ring-1 focus:ring-red-500 border dark:bg-gray-500 rounded resize-none"
+            className="w-full h-[125px] px-2 py-1 focus:outline-none focus:ring-1 focus:ring-red-500 border dark:bg-[#8C8C8C] rounded resize-none text-[#D0D0D0] placeholder-[#D0D0D0] border-[#D0D0D0]"
             required
           ></textarea>
         </div>
@@ -129,9 +129,9 @@ const ContactForm = () => {
         <button
           type="submit"
           disabled={isSending}
-          className={`w-full px-4 py-2 text-white rounded transition duration-150 ${
+          className={`w-full px-4 py-2 rounded transition duration-150 ${
             isSending ? "bg-gray-400" : "bg-[#e31e24] hover:bg-red-800"
-          }`}
+          } text-[#D0D0D0]`}
         >
           {isSending ? "Enviando..." : "Enviar"}
         </button>
