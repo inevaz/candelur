@@ -183,7 +183,7 @@ const Productos = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
         {maquinariasFiltradas.map((maquina) => (
           <div className="flex flex-col items-center gap-1" key={maquina.id}>
             <h3 className="text-md font-bold text-gray-800 dark:text-gray-400">
@@ -197,7 +197,7 @@ const Productos = () => {
                     <img
                       src={`/api/${imagenesPorMaquina[maquina.id][0]}`}
                       alt={`Imagen de ${maquina.modelo}`}
-                      className="w-full h-auto max-h-40 object-cover rounded-md"
+                      className="h-full max-h-auto w-full"
                     />
                   ) : (
                     <p className="text-gray-500 text-sm">
@@ -235,10 +235,10 @@ const Productos = () => {
 const StyledWrapper = styled.div`
   .card {
     box-sizing: border-box;
-    width: 190px;
-    height: 254px;
-    background: rgba(217, 217, 217, 0.58);
-    border: 1px solid white;
+    width: 250px;
+    height: 300px;
+    background: white;
+    border: 4px solid rgba(166, 166, 166, 0.45);
     box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
     backdrop-filter: blur(6px);
     border-radius: 17px;
