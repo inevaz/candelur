@@ -24,7 +24,7 @@ const Card = ({ maquinarias }) => {
             {/* Botón para descargar la ficha técnica */}
             {maquina.ficha_tecnica_path ? (
               <a
-                href={`http://127.0.0.1:8000/${maquina.ficha_tecnica_path}`}
+                href={`https://candelur.com.uy/${maquina.ficha_tecnica_path}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-3 inline-block text-blue-500 hover:underline text-sm"

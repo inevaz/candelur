@@ -14,7 +14,9 @@ app = FastAPI()
 
 # Configuración de CORS
 origins = [
-    "http://localhost:5173",  # Origen del frontend
+    "http://localhost:5173",  # útil para desarrollo local (podés dejarlo)
+    "https://candelur.com.uy",  # dominio de producción
+    "https://www.candelur.com.uy",  # por si usan la versión con www
 ]
 
 app.mount("/img", StaticFiles(directory="img"), name="img")
@@ -88,5 +90,3 @@ def get_imagenes(maquinaria_id: int):
         raise HTTPException(status_code=404, detail="No hay imágenes para esta maquinaria")
     # Devuelve la lista de URLs de las imágenes asociadas
     return {"imagenes": [img.url for img in imagenes]}
-
-#para probar http://127.0.0.1:8000/ficha_tecnica/3 o la que sea
