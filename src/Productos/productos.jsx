@@ -61,7 +61,7 @@ const Productos = () => {
   useEffect(() => {
     const fetchMaquinarias = async () => {
       try {
-        const response = await fetch("/api/maquinarias");
+        const response = await fetch("https://candelur-backend-1.onrender.com/maquinarias");
         if (!response.ok)
           throw new Error(`Error al cargar los datos: ${response.statusText}`);
         const data = await response.json();
@@ -85,7 +85,7 @@ const Productos = () => {
   // Función reutilizable para obtener imágenes de una máquina
   const fetchImagenes = async (maquinaId) => {
     try {
-      const response = await fetch(`/api/imagenes/${maquinaId}`);
+      const response = await fetch(`https://candelur-backend-1.onrender.com/imagenes/${maquinaId}`);
       if (!response.ok)
         throw new Error(
           `No se encontraron imágenes para la máquina ${maquinaId}`
@@ -195,7 +195,7 @@ const Productos = () => {
                 <div className="w-full h-full flex flex-col items-center justify-center">
                   {imagenesPorMaquina[maquina.id]?.length > 0 ? (
                     <img
-                      src={`/api/${imagenesPorMaquina[maquina.id][0]}`}
+                      src={`https://candelur-backend-1.onrender.com/${imagenesPorMaquina[maquina.id][0]}`}
                       alt={`Imagen de ${maquina.modelo}`}
                       className="h-full max-h-[250px] max-w-[240px] p-2"
                     />
@@ -210,7 +210,7 @@ const Productos = () => {
                 {maquina.ficha_tecnica_path ? (
                   <div className="flex item-center justify-center">
                     <a
-                      href={`/api/${maquina.ficha_tecnica_path}`}
+                      href={`https://candelur-backend-1.onrender.com/${maquina.ficha_tecnica_path}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="uppercase text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out"
