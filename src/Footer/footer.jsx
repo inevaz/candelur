@@ -38,7 +38,6 @@ const Footer = () => {
           <div className="flex flex-col gap-4">
             <p className="text-white text-xs uppercase">¿Necesitas ayuda?</p>
             <ul className="text-white font-bold flex flex-col gap-4">
-              <li>Preguntas frecuentes</li>
               <a
                 href="https://www.google.com/maps?q=-34.913293869692275, -54.94214512091994" // Cambia por tus coordenadas
                 target="_blank"
@@ -55,7 +54,7 @@ const Footer = () => {
           </div>
     
 
-          <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
             <a
   href="https://www.instagram.com/candelursa/ "
   target="_blank"
