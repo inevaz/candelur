@@ -1,6 +1,29 @@
+import { useState } from "react";
 import ContactForm from "./contactForm";
+import Lottie from '@lottielab/lottie-player/react';
 
 const Contacto = () => {
+  const [mapLoaded, setMapLoaded] = useState(false);
+
+  const handleMapLoad = () => {
+    setMapLoaded(true);
+  };
+  const renderMapSkeleton = () => (
+    <div className="w-full h-[380px] rounded-lg shadow-md bg-white flex flex-col items-center justify-center gap-1">
+      {/* animacion lottie */}
+      <div className="w-16 h-16 flex items-center justify-center">
+        <Lottie 
+          src="https://cdn.lottielab.com/l/Ez2VYXWRieFjeK.json"
+          autoplay
+          loop
+          style={{ width: 64, height: 64 }}
+        />
+      </div>
+      
+      {/* texto para el loading del mapa */}
+      <p className="text-gray-600 text-sm font-medium">Cargando mapa...</p>
+    </div>
+  );
   return (
     <div className="px-[15dvh] py-20 flex w-full flex-col gap-14">
       <div className="flex w-full items-center justify-between gap-6">
@@ -16,16 +39,18 @@ const Contacto = () => {
             <p className="font-krub pt-1">
               Av. Cachimba del Rey 396 - Maldonado
             </p>
-          </div>
-
-          <div className="h-full gap-2 flex flex-col justify-between">
+          </div>          <div className="h-full gap-2 flex flex-col justify-between">
+            {!mapLoaded && renderMapSkeleton()}
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.6970709168645!2d-54.94395824619739!3d-34.9140508887624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95751abe4b95e2c5%3A0x643beae657b280c0!2sCandelur!5e0!3m2!1sen!2suy!4v1747927821127!5m2!1sen!2suy"
-              className="w-full h-[380px] rounded-lg shadow-md"
+              className={`w-full h-[380px] rounded-lg shadow-md transition-opacity duration-300 ${
+                mapLoaded ? 'opacity-100' : 'opacity-0 absolute'
+              }`}
               style={{ border: 0 }}
-              allowfullscreen=""
+              allowFullScreen=""
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
+              onLoad={handleMapLoad}
             ></iframe>
           </div>
         </div>

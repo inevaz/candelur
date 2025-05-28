@@ -3,6 +3,10 @@ import { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import Lottie from '@lottielab/lottie-player/react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 
 const Productos = () => {
   const [maquinarias, setMaquinarias] = useState([]);
@@ -104,7 +108,7 @@ const Productos = () => {
     }
   };
 
-  if (loading) return <p>Cargando maquinaria...</p>;
+  //if (loading) return <p>Cargando maquinaria...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   const maquinariasFiltradas = maquinarias.filter((maquina) => {
@@ -135,6 +139,38 @@ const Productos = () => {
     camion_grua: "Camión grúa",
   };
 
+
+const renderSkeleton = () => (
+  <div className="flex flex-col items-center gap-1">
+    {/* Skeleton del titulo*/}
+    <Skeleton 
+      height={20} 
+      width={128} 
+      baseColor={isDark ? "#4a4a4a" : "#f0f0f0"} 
+      highlightColor={isDark ? "#6a6a6a" : "#e0e0e0"} 
+    />
+    
+    <StyledWrapper>
+      <div className="card skeleton-card">
+        {/* contenedor principal */}
+        <div className="w-full h-full flex flex-col items-center justify-center bg-white">
+          {/* animacion de lottie */}
+          <div className="w-16 h-16 mb-2 flex items-center justify-center">
+            <Lottie 
+              src="https://cdn.lottielab.com/l/Ez2VYXWRieFjeK.json"
+              autoplay
+              loop
+              style={{ width: 64, height: 64 }}
+            />
+          </div>
+          
+          {/* Ttxt cargando */}
+          <p className="text-gray-600 text-sm font-medium -mt-1">Cargando...</p>
+        </div>
+      </div>
+    </StyledWrapper>
+  </div>
+);
   return (
     <div className="py-12 flex flex-col gap-6 items-center px-[25dvh]">
       <div className="flex items-center w-full justify-between">
@@ -183,8 +219,17 @@ const Productos = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-        {maquinariasFiltradas.map((maquina) => (
+<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+  {loading ? (
+    // Si está cargando, muestra 8 skeletons blancos
+    Array.from({ length: 8 }).map((_, index) => (
+      <div key={index}>
+        {renderSkeleton()}
+      </div>
+    ))
+  ) : (
+    // Si no está cargando, muestra las maquinarias reales
+    maquinariasFiltradas.map((maquina) => (
           <div className="flex flex-col items-center gap-1" key={maquina.id}>
             <h3 className="text-md font-bold text-gray-800 dark:text-gray-400">
               {maquina.modelo}
@@ -218,16 +263,16 @@ const Productos = () => {
                       Ver ficha técnica
                     </a>
                   </div>
-                ) : (
-                  <p className="text-gray-400 text-sm mt-2 dark:text-white">
+                ) : (                  <p className="text-gray-400 text-sm mt-2 dark:text-white">
                     Ficha técnica no disponible
                   </p>
                 )}
               </div>
             </StyledWrapper>
           </div>
-        ))}
-      </div>
+        ))
+  )}
+</div>
     </div>
   );
 };
@@ -263,6 +308,24 @@ const StyledWrapper = styled.div`
   .card:active {
     transform: scale(0.95) rotateZ(1.7deg);
   }
-`;
 
+  /* cards skeleton  */
+  .skeleton-card {
+    background: white !important;
+    opacity: 0.95;
+    pointer-events: none;
+    border: 4px solid rgba(200, 200, 200, 0.5);
+  }
+
+  /* desactivar el hover para las cards skeleton */
+  .skeleton-card:hover {
+    transform: none;
+    border: 4px solid rgba(200, 200, 200, 0.5);
+    background: white !important;
+  }
+
+  .skeleton-card:active {
+    transform: none;
+  }
+`;
 export default Productos;
