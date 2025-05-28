@@ -56,10 +56,20 @@ const Productos = () => {
 
     observer.observe(htmlElement, {
       attributes: true,
-    });
-
-    return () => observer.disconnect();
+    });    return () => observer.disconnect();
   }, [isDark]);
+
+  // precarga la animación lottie para que no demore mucho en aparecer
+  useEffect(() => {
+    const preloadLottie = async () => {
+      try {
+        await fetch("https://cdn.lottielab.com/l/Ez2VYXWRieFjeK.json");
+      } catch (err) {
+        console.log("No se pudo precargar la animación Lottie");
+      }
+    };
+    preloadLottie();
+  }, []);
 
   // Obtener lista de maquinarias
   useEffect(() => {

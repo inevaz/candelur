@@ -68,14 +68,18 @@ const Footer = () => {
               />
             </div>
 </a>
-            
-        
-            <div className="rounded-full border-2 border-white p-1">
-              <FontAwesomeIcon
-                className="text-white w-[25px] "
-                icon={faWhatsapp}
-              />
-            </div>
+                        <a
+              href="https://wa.me/59896388002"
+              target="_blank"
+              rel="noopener noreferrer" //seguridad para evitar ataques de phishing
+            >
+              <div className="rounded-full border-2 border-white p-1">
+                <FontAwesomeIcon
+                  className="text-white w-[25px] "
+                  icon={faWhatsapp}
+                />
+              </div>
+            </a>
           </div>
         </div>
       </section>
