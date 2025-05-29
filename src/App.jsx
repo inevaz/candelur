@@ -8,12 +8,14 @@ import Productos from './Productos/productos.jsx'
 import Galeria from './Galeria/galeria.jsx'
 import Contacto from './Contacto/contacto.jsx'
 import Home from './Home/home.jsx'
-import ScrollToTop from './ScroltoTop.jsx';
+import ScrollToTop from './ScroltoTop.jsx'
+import WhatsAppButton from './components/WhatsappButton.jsx'
 
-function App() {  return (
+function App() {
+  return (
     <BrowserRouter>
       <div className="w-full flex flex-col bg-[#CECECE] dark:bg-[#3A3A3A]">
-        <Navbar/>
+        <Navbar />
         <ScrollToTop />
         <main className="flex-grow pt-10">
           <Routes>
@@ -23,8 +25,8 @@ function App() {  return (
             <Route path="/contacto" element={<Contacto />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-
         </main>
+        <WhatsAppButton /> {/*boton wp */}
         <Footer />
       </div>
     </BrowserRouter>

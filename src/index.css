@@ -14,11 +14,30 @@ body {
 a {
   text-decoration: none;
 }
-
 /* Estilos para tema oscuro */
 .dark body {
   background-color: #3A3A3A;
   color: #f1f1f1;
+}
+
+/* Estilos para las posiciones de fondo en el slider */
+.bg-slide-camion_grua {
+  background-position: 30% center !important;
+}
+
+.bg-slide-plataforma {
+  background-position: 25% center !important;
+}
+
+/* Media queries para dispositivos pequeños */
+@media (max-width: 640px) {
+  .bg-slide-camion_grua {
+    background-position: 20% center !important;
+  }
+  
+  .bg-slide-plataforma {
+    background-position: 15% center !important;
+  }
 }
 
 .custom-pagination .swiper-pagination-bullet {
@@ -28,6 +47,21 @@ a {
 }
 
 .custom-pagination .swiper-pagination-bullet-active {
-  background-color: #883c3c; /* Color activo */
+  background-color: #000000; /* Color activo */
   
+}
+.dark .custom-pagination .swiper-pagination-bullet {
+  background-color: #ffffff; /* Color personalizado en modo oscuro */
+}
+
+/* Estilos para el fade-in de imágenes al hacer scroll */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }

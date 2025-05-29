@@ -9,25 +9,24 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="bg-black h-full w-full flex flex-col gap-7 px-[20dvw] py-[12dvh]">
-      <section className="flex items-end gap-2 justify-between pt-12">
+    <div className="bg-black h-full w-full flex flex-col gap-4 md:gap-7 px-4 sm:px-8 md:px-12 lg:px-20 py-8 md:py-12">
+      <section className="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-2 justify-between pt-6 md:pt-12">
         <img
-          className="w-[200px] h-auto"
+          className="w-[150px] sm:w-[180px] md:w-[200px] h-auto"
           src={"../img/candelur_logo_light_text.png"}
           alt="Candelur"
         />
 
-        <div className="h-[50px] text-white font-bold flex items-center py-0 px-4 gap-2 rounded-4xl border-white border-2">
+        <div className="h-[40px] md:h-[50px] text-white font-bold flex items-center py-0 px-3 md:px-4 gap-2 rounded-4xl border-white border-2">
           <FontAwesomeIcon
-            className="text-white h-[20px] w-[20px] "
+            className="text-white h-[16px] w-[16px] md:h-[20px] md:w-[20px]"
             icon={faLocationDot}
           />
           Uruguay
         </div>
-      </section>
-      <hr className="bg-white"></hr>
-      <section className="">
-        <div className="flex justify-between gap-2 items-start">
+      </section>      <hr className="bg-white"></hr>
+      <section className="w-full">
+        <div className="flex flex-col sm:flex-row justify-between gap-6 sm:gap-2 items-center sm:items-start">
           {/* <div className='flex flex-col gap-4'>
                         <p className='text-white text-xs uppercase'>Sobre Nosotros</p>
                         <ul className='text-white font-bold flex flex-col gap-4'>
@@ -35,11 +34,11 @@ const Footer = () => {
                             <li>Trabaja con nosotros</li>
                         </ul>
                     </div> */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 md:gap-4 items-center sm:items-start">
             <p className="text-white text-xs uppercase">¿Necesitas ayuda?</p>
-            <ul className="text-white font-bold flex flex-col gap-4">
+            <ul className="text-white font-bold flex flex-col gap-3 md:gap-4 items-center sm:items-start">
               <a
-                href="https://www.google.com/maps?q=-34.913293869692275, -54.94214512091994" // Cambia por tus coordenadas
+                href="https://www.google.com/maps?q=-34.913293869692275, -54.94214512091994" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className=""
@@ -49,44 +48,40 @@ const Footer = () => {
 
               <Link to="/contacto">
                 <li>Contactanos</li>
-              </Link>
-            </ul>
+              </Link>          </ul>
           </div>
     
-
-          <div className="flex gap-4">
+          <div className="flex gap-4 mt-2 sm:mt-0">
             <a
-  href="https://www.instagram.com/candelursa/ "
-  target="_blank"
-  rel="noopener noreferrer"
-
->
-  <div className="rounded-full border-2 border-white p-1">
-              <FontAwesomeIcon
-                className="text-white w-[25px] "
-                icon={faInstagram}
-              />
-            </div>
-</a>
-                        <a
+              href="https://www.instagram.com/candelursa/ "
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="rounded-full border-2 border-white p-1 hover:bg-white hover:bg-opacity-20 transition-colors">
+                <FontAwesomeIcon
+                  className="text-white w-[20px] sm:w-[22px] md:w-[25px]"
+                  icon={faInstagram}
+                />
+              </div>
+            </a>
+            <a
               href="https://wa.me/59896388002"
               target="_blank"
               rel="noopener noreferrer" //seguridad para evitar ataques de phishing
             >
-              <div className="rounded-full border-2 border-white p-1">
+              <div className="rounded-full border-2 border-white p-1 hover:bg-white hover:bg-opacity-20 transition-colors">
                 <FontAwesomeIcon
-                  className="text-white w-[25px] "
+                  className="text-white w-[20px] sm:w-[22px] md:w-[25px]"
                   icon={faWhatsapp}
                 />
               </div>
             </a>
-          </div>
-        </div>
+          </div>        </div>
       </section>
       <hr className="bg-white"></hr>
-      <div className="flex w-full justify-end">
-        <p className="text-white text-bold">
-          © 2025 Candelur S.A. Todos los derechos reservados.
+      <div className="flex w-full justify-center sm:justify-end">
+        <p className="text-white text-xs sm:text-sm md:text-base text-center sm:text-right">
+          © {new Date().getFullYear()} Candelur S.A. Todos los derechos reservados.
         </p>
       </div>
     </div>

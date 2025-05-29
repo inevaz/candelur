@@ -7,7 +7,6 @@ import Lottie from '@lottielab/lottie-player/react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-
 const Productos = () => {
   const [maquinarias, setMaquinarias] = useState([]);
   const [imagenesPorMaquina, setImagenesPorMaquina] = useState({});
@@ -32,7 +31,6 @@ const Productos = () => {
       setFiltroTipo(location.state.filtro);
     }
   }, [location.state]);
-
   // Detectar si el modo oscuro está activo al cargar
   useEffect(() => {
     const htmlElement = document.documentElement;
@@ -58,6 +56,18 @@ const Productos = () => {
       attributes: true,
     });    return () => observer.disconnect();
   }, [isDark]);
+  
+  // Cerrar dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownOpen && !event.target.closest('.dropdown-container')) {
+        setDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [dropdownOpen]);
 
   // precarga la animación lottie para que no demore mucho en aparecer
   useEffect(() => {
@@ -70,7 +80,6 @@ const Productos = () => {
     };
     preloadLottie();
   }, []);
-
   // Obtener lista de maquinarias
   useEffect(() => {
     const fetchMaquinarias = async () => {
@@ -86,7 +95,12 @@ const Productos = () => {
           fetchImagenes(maquina.id);
         });
 
-        setLoading(false);
+        // Agregar un delay mínimo para mostrar el loading
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 500); // 1.5 segundos mínimo
+
+        return () => clearTimeout(timer);
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -154,8 +168,8 @@ const renderSkeleton = () => (
   <div className="flex flex-col items-center gap-1">
     {/* Skeleton del titulo*/}
     <Skeleton 
-      height={20} 
-      width={128} 
+      height={18} 
+      width={110} 
       baseColor={isDark ? "#4a4a4a" : "#f0f0f0"} 
       highlightColor={isDark ? "#6a6a6a" : "#e0e0e0"} 
     />
@@ -165,51 +179,48 @@ const renderSkeleton = () => (
         {/* contenedor principal */}
         <div className="w-full h-full flex flex-col items-center justify-center bg-white">
           {/* animacion de lottie */}
-          <div className="w-16 h-16 mb-2 flex items-center justify-center">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 mb-2 flex items-center justify-center">
             <Lottie 
               src="https://cdn.lottielab.com/l/Ez2VYXWRieFjeK.json"
               autoplay
               loop
-              style={{ width: 64, height: 64 }}
+              style={{ width: '100%', height: '100%' }}
             />
           </div>
           
           {/* Ttxt cargando */}
-          <p className="text-gray-600 text-sm font-medium -mt-1">Cargando...</p>
+          <p className="text-gray-600 text-xs sm:text-sm font-medium -mt-1">Cargando...</p>
         </div>
       </div>
     </StyledWrapper>
   </div>
-);
-  return (
-    <div className="py-12 flex flex-col gap-6 items-center px-[25dvh]">
-      <div className="flex items-center w-full justify-between">
-        <h2 className="text-2xl font-bold mt-6">Catálogo de Maquinaria</h2>
-        <div className="relative flex gap-4">
+);return (
+    <div className="py-6 sm:py-8 md:py-12 flex flex-col gap-4 sm:gap-6 items-center px-4 sm:px-6 md:px-10 lg:px-16 xl:px-[25dvh]">      <div className="flex flex-col sm:flex-row items-start sm:items-center w-full justify-between gap-4 sm:gap-0">
+        <h2 className="text-xl sm:text-2xl font-bold mt-2 sm:mt-6">Catálogo de Maquinaria</h2>
+        <div className="dropdown-container relative flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
           {/* Campo de búsqueda */}
           <input
             type="text"
             placeholder="Buscar por nombre"
-            className="px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white"
+            className="px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white w-full sm:w-auto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button
+          />          <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className={`flex items-center gap-2 px-4 py-2 ${
+            className={`flex items-center justify-between gap-2 px-4 py-2 ${
               dropdownOpen ? "rounded-t-md" : "rounded-md"
-            } bg-white dark:text-white  dark:bg-black`}
+            } bg-white dark:text-white dark:bg-black w-full sm:w-auto`}
           >
             <span className="font-bold">{filtroSingular[filtroTipo]}</span>
             <img
               src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"}
               alt="Filtro"
-              className="w-6 h-6 text-white"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white"
             />
           </button>
 
           {dropdownOpen && (
-            <ul className="absolute -right-[81px] top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-48">
+            <ul className="absolute right-0 sm:-right-[81px] top-[38px] sm:top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
               {opciones.map((opcion) => (
                 <li
                   key={opcion.value}
@@ -217,7 +228,7 @@ const renderSkeleton = () => (
                     setFiltroTipo(opcion.value);
                     setDropdownOpen(false);
                   }}
-                  className={`px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                  className={`px-4 py-3 sm:py-2 text-center sm:text-left cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
                     filtroTipo === opcion.value ? "font-bold text-red-600" : ""
                   }`}
                 >
@@ -229,19 +240,19 @@ const renderSkeleton = () => (
         </div>
       </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-  {loading ? (
-    // Si está cargando, muestra 8 skeletons blancos
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
+  {loading || Object.keys(imagenesPorMaquina).length === 0 ? (
+    // Si está cargando o no hay imágenes cargadas, muestra skeletons
     Array.from({ length: 8 }).map((_, index) => (
-      <div key={index}>
+      <div key={index} className="flex justify-center">
         {renderSkeleton()}
       </div>
     ))
   ) : (
-    // Si no está cargando, muestra las maquinarias reales
+    // Si ya terminó de cargar, muestra las maquinarias reales
     maquinariasFiltradas.map((maquina) => (
-          <div className="flex flex-col items-center gap-1" key={maquina.id}>
-            <h3 className="text-md font-bold text-gray-800 dark:text-gray-400">
+          <div className="flex flex-col items-center gap-1 mx-auto" key={maquina.id}>
+            <h3 className="text-sm sm:text-md font-bold text-gray-800 dark:text-gray-400 text-center">
               {maquina.modelo}
             </h3>
             <StyledWrapper>
@@ -252,28 +263,28 @@ const renderSkeleton = () => (
                     <img
                       src={`https://candelur-backend-1.onrender.com/${imagenesPorMaquina[maquina.id][0]}`}
                       alt={`Imagen de ${maquina.modelo}`}
-                      className="h-full max-h-[250px] max-w-[240px] p-2"
+                      className="h-full max-h-[210px] sm:max-h-[250px] max-w-[200px] sm:max-w-[240px] p-2"
+                      loading="lazy"
                     />
                   ) : (
                     <p className="text-gray-500 text-sm">
                       Sin imagen disponible
                     </p>
                   )}
-                </div>
-
-                {/* Botón ficha técnica */}
+                </div>                {/* Botón ficha técnica */}
                 {maquina.ficha_tecnica_path ? (
                   <div className="flex item-center justify-center">
                     <a
                       href={`https://candelur-backend-1.onrender.com/${maquina.ficha_tecnica_path}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="uppercase text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out"
+                      className="uppercase text-xs sm:text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out bg-gray-100 dark:bg-gray-200 px-3 py-1 rounded-full"
                     >
                       Ver ficha técnica
                     </a>
                   </div>
-                ) : (                  <p className="text-gray-400 text-sm mt-2 dark:text-white">
+                ) : (
+                  <p className="text-gray-400 text-xs sm:text-sm mt-2 dark:text-white">
                     Ficha técnica no disponible
                   </p>
                 )}
@@ -290,8 +301,8 @@ const renderSkeleton = () => (
 const StyledWrapper = styled.div`
   .card {
     box-sizing: border-box;
-    width: 250px;
-    height: 300px;
+    width: 220px;
+    height: 260px;
     background: white;
     border: 4px solid rgba(166, 166, 166, 0.45);
     box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
@@ -308,6 +319,11 @@ const StyledWrapper = styled.div`
     color: black;
     flex-direction: column;
     padding: 5px;
+    
+    @media (min-width: 640px) {
+      width: 250px;
+      height: 300px;
+    }
   }
 
   .card:hover {

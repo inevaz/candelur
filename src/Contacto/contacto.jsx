@@ -23,12 +23,11 @@ const Contacto = () => {
       {/* texto para el loading del mapa */}
       <p className="text-gray-600 text-sm font-medium">Cargando mapa...</p>
     </div>
-  );
-  return (
-    <div className="px-[15dvh] py-20 flex w-full flex-col gap-14">
-      <div className="flex w-full items-center justify-between gap-6">
+  );  return (
+    <div className="px-4 sm:px-8 md:px-[10dvh] lg:px-[15dvh] py-10 sm:py-20 flex w-full flex-col gap-8 md:gap-14">
+      <div className="flex w-full flex-col md:flex-row items-start md:items-center justify-between gap-10 md:gap-6">
         <div className="w-full flex flex-col gap-6">
-          <h1 className="font-krub h-10 font-bold text-3xl">
+          <h1 className="font-krub h-10 font-bold text-2xl sm:text-3xl">
             Formulario de contacto
           </h1>
           <ContactForm />
@@ -54,18 +53,17 @@ const Contacto = () => {
             ></iframe>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-10 ">
-        <h2 className="font-krub font-bold text-3xl">Más formas de contacto</h2>
-        <div className="flex gap-12 w-full pl-2">
-          <div className="flex gap-5 items-center">
+      </div>      <div className="flex flex-col gap-6 sm:gap-10">
+        <h2 className="font-krub font-bold text-2xl sm:text-3xl">Más formas de contacto</h2>
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 w-full pl-0 sm:pl-2">
+          <div className="flex gap-4 sm:gap-5 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke-width="1.8"
               stroke="currentColor"
-              class="w-9 h-9"
+              class="w-7 h-7 sm:w-9 sm:h-9"
             >
               <path
                 stroke-linecap="round"
@@ -74,16 +72,16 @@ const Contacto = () => {
               />
             </svg>
 
-            <p className="font-krub">info@candelur.com.uy</p>
+            <p className="font-krub text-sm sm:text-base">info@candelur.com.uy</p>
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-4 sm:gap-5 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke-width="1.7"
               stroke="currentColor"
-              class="w-9 h-9"
+              class="w-7 h-7 sm:w-9 sm:h-9"
             >
               <path
                 stroke-linecap="round"
@@ -91,10 +89,10 @@ const Contacto = () => {
                 d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-            <p className="font-krub">Lunes a Viernes de 08:00 a 18:00hrs</p>
+            <p className="font-krub text-sm sm:text-base">Lunes a Viernes de 08:00 a 18:00hrs</p>
           </div>
         </div>
-        <div className="flex gap-32 w-full pl-2">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-32 w-full pl-0 sm:pl-2">
           <div className="flex gap-5 items-center">
             <svg
               width="100%"
