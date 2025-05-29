@@ -1,12 +1,12 @@
-# React + Vite
+# Full-stack web development for a construction machinery company: Candelur S.A.
+Technologies used:
+Back-end: Python (SQLAlchemy library), SQLite, FastAPI
+Front-end: React + Vite, Windi CSS
+Libraries:
+Styled Components: For CSS in js.
+React Router: For route management.
+yet-another-react-lightbox: For displaying images in a lightbox/gallery format.
+Lottie: For animations, using @lottielab/lottie-player/react.
+react-loading-skeleton: For loading effects using skeleton placeholders.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
