@@ -1,7 +1,10 @@
 # Full-stack web development for a construction machinery company: Candelur S.A.
 Technologies used:
+
 Back-end: Python (SQLAlchemy library), SQLite, FastAPI
+
 Front-end: React + Vite, Windi CSS
+
 Libraries:
 
 Styled Components: For CSS in js.
