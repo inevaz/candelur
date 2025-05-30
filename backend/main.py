@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 import smtplib
 from email.mime.text import MIMEText
 from textwrap import dedent
+import ssl  
 
 app = FastAPI()
 
@@ -24,13 +25,14 @@ app.mount("/fichas_tecnicas", StaticFiles(directory="fichas_tecnicas"), name="fi
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Permitir estos orígenes
+    allow_origins=origins,
+    allow_origin_regex=r"https:\/\/(?:www\.)?candelur\.com\.uy",
     allow_credentials=True,
-    allow_methods=["*"],    # Permitir todos los métodos (GET, POST, etc.)
-    allow_headers=["*"],    # Permitir todas las cabeceras
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-@app.post("/contact")
+@app.post("/contacto")
 async def send_contact_form(request: Request):
     form_data = await request.json()
     print("Datos recibidos:", form_data)
@@ -50,15 +52,23 @@ async def send_contact_form(request: Request):
     msg["From"] = sender_email
     msg["To"] = receiver_email
 
+    EMAIL_HOST = "mail.candelur.com.uy"
+    EMAIL_PORT = 465  # Para SSL
+    EMAIL_USER = "info@candelur.com.uy"
+    EMAIL_PASS = os.getenv("SMTP_PASSWORD")  # La contraseña se obtiene de una variable de entorno
+
     try:
-        # Enviar a un servidor SMTP local de prueba (no necesita login)
-        with smtplib.SMTP("localhost", 1025) as server:
-            server.sendmail(sender_email, receiver_email, msg.as_string())
-        return JSONResponse({"success": True, "message": "Correo simulado enviado correctamente"})
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT, context=context) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.sendmail(EMAIL_USER, receiver_email, msg.as_string())
+
+        return JSONResponse({"success": True, "message": "Correo enviado correctamente"})
     except Exception as e:
         print("Error al enviar correo:", str(e))
         return JSONResponse({"success": False, "message": f"Error: {str(e)}"}, status_code=500)
-    
+
+
 def get_db():
     db = SessionLocal()
     try:
