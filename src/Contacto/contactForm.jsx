@@ -28,6 +28,8 @@ const ContactForm = () => {
     setSuccess(false);
 
     try {
+      const response = await fetch('https://candelur-backend-1.onrender.com/contacto', {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
