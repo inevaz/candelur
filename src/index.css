@@ -41,17 +41,17 @@ a {
 }
 
 .custom-pagination .swiper-pagination-bullet {
-  background-color: #000000; /* Color personalizado */
+  background-color: #9456f2; /* Color personalizado */
   width: 15px;
   height: 15px;
 }
 
 .custom-pagination .swiper-pagination-bullet-active {
-  background-color: #000000; /* Color activo */
+  background-color: #ffffff; /* Color activo */
   
 }
 .dark .custom-pagination .swiper-pagination-bullet {
-  background-color: #ffffff; /* Color personalizado en modo oscuro */
+  background-color: #000000; /* Color personalizado en modo oscuro */
 }
 
 /* Estilos para el fade-in de imágenes al hacer scroll */

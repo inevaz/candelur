@@ -39,7 +39,7 @@ const Slider = () => {
     return () => clearTimeout(timer);
   }, []);
   return (  <div
-      className="flex items-center justify-center w-full flex-col lg:px-[3dvh] md:px-[2dvh] px-[1dvh]
+      className="flex items-center bg-black justify-center w-full flex-col lg:px-[3dvh] md:px-[2dvh] px-[1dvh]
     pt-12 sm:pt-8 md:pt-12 pb-6 sm:pb-8 md:pb-12 overflow-hidden"
     >
       {/* Carrusel */}      <Swiper
@@ -96,10 +96,10 @@ const Slider = () => {
         {ServiceData.map((_, index) => (
           <div
             key={index}
-            className="m-1 sm:m-2 p-1 sm:p-2 border border-black border-2 rounded-full flex items-center justify-center"
+            className="m-1 sm:m-2 p-1 sm:p-2  flex items-center justify-center"
           >
             <div
-              className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-black opacity-50 transition-opacity duration-300 cursor-pointer"
+              className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full opacity-70 transition-opacity duration-300 cursor-pointer"
               onClick={() => swiperRef.current.swiper.slideTo(index)}
             ></div>
           </div>

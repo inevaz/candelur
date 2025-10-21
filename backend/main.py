@@ -48,7 +48,7 @@ async def send_contact_form(request: Request):
         Mensaje:
         {form_data.get('message', '')}
     """)
-    msg["Subject"] = "Nuevo contacto desde el sitio web"
+    msg["Subject"] = "Correo enviado desde el sitio web"
     msg["From"] = sender_email
     msg["To"] = receiver_email
 
@@ -79,6 +79,7 @@ def get_db():
 @app.get("/maquinarias")
 def get_maquinarias(db: Session = Depends(get_db)):
     return db.query(models.Maquinaria).all()
+
 @app.get("/ficha_tecnica/{maquinaria_id}")
 def get_ficha_tecnica(maquinaria_id: int):
     db = SessionLocal()
@@ -91,6 +92,7 @@ def get_ficha_tecnica(maquinaria_id: int):
         raise HTTPException(status_code=404, detail="Archivo PDF no encontrado")
     # Devuelve un mensaje de texto simple en vez de descargar el PDF
     return {"mensaje": f"Ficha técnica encontrada: {os.path.basename(ficha_path)}"}
+
 @app.get("/imagenes/{maquinaria_id}")
 def get_imagenes(maquinaria_id: int):
     db = SessionLocal()
@@ -100,3 +102,15 @@ def get_imagenes(maquinaria_id: int):
         raise HTTPException(status_code=404, detail="No hay imágenes para esta maquinaria")
     # Devuelve la lista de URLs de las imágenes asociadas
     return {"imagenes": [img.url for img in imagenes]}
+
+# Back para la galery de imagenes
+
+@app.get("/galery-images")
+def list_galery_images():
+    galery_dir = os.path.join("img", "galery")
+    exts = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff"}
+    files = [
+        f for f in os.listdir(galery_dir)
+        if os.path.isfile(os.path.join(galery_dir, f)) and os.path.splitext(f)[1].lower() in exts
+    ]
+    return {"images": files}

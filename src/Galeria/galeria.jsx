@@ -7,6 +7,8 @@ const Galeria = () => {
   const [filteredImages, setFilteredImages] = useState([]);
   const [filter, setFilter] = useState("Todos");
 
+  const [imagenes, setImagenes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -18,6 +20,7 @@ const Galeria = () => {
     { value: "Plataforma", label: "Plataformas" },
   ];
   const [isDark, setIsDark] = useState(false);
+  
   // Detectar si el modo oscuro está activo al cargar
   useEffect(() => {
     const htmlElement = document.documentElement;
@@ -67,24 +70,28 @@ const Galeria = () => {
   }, []);
 
   useEffect(() => {
-    const importImages = async () => {
-      const modules = import.meta.glob("../galery/*.{jpeg,jpg}");
-      const entries = Object.entries(modules);
+  const fetchImagenes = async () => {
+    try {
+      const response = await fetch("https://candelur-backend-1.onrender.com/galery-images");
+      if (!response.ok) throw new Error("No se pudieron cargar las imágenes");
+      const data = await response.json();
+      // Transforma el array de nombres en objetos { src, name }
+      const imgs = (data.images || []).map(name => ({
+        src: `https://candelur-backend-1.onrender.com/galery/${name}`,
+        name
+      }));
+      setAllImages(imgs);
+      setFilteredImages(imgs);
+    } catch (err) {
+      setAllImages([]);
+      setFilteredImages([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchImagenes();
+}, []);
 
-      const imageData = await Promise.all(
-        entries.map(async ([path, importFn]) => {
-          const mod = await importFn();
-          const fileName = path.split("/").pop();
-          return { src: mod.default, name: fileName };
-        })
-      );
-
-      setAllImages(imageData);
-      setFilteredImages(imageData);
-    };
-
-    importImages();
-  }, []);
   //efecto para cuando scrolleas, las imagenes aparezcan suavecitas
   useEffect(() => {
     const fadeElements = document.querySelectorAll('.fade-in-section');
@@ -109,7 +116,9 @@ const Galeria = () => {
         observer.unobserve(element);
       });
     };
-  }, [filteredImages]);  return (
+  }, [filteredImages]);  
+  
+  return (
     <div className="px-4 sm:px-6 md:px-10 lg:px-[15dvh] pt-12 sm:pt-10 md:pt-10 pb-16 flex gap-4 sm:gap-6 flex-col items-start">{/* Dropdown */}
       <div className="flex w-full sm:w-auto mt-2 sm:mt-0">
         <div className="dropdown-container relative w-full sm:w-auto">

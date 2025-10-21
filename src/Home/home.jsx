@@ -98,9 +98,9 @@ const home = () => {
   return ( 
     <div className="w-full h-full bg-white dark:bg-[#555555]">
       <Slider />      {/*seccion texto */}
-      <section ref={textRef} className="w-full bg-black py-16 px-8 flex items-center justify-center min-h-[600px]">
+      <section ref={textRef} className="w-full py-16 px-8 flex items-center justify-center min-h-[600px]">
         <div className="max-w-6xl mx-auto text-center flex items-center justify-center">
-          <h2 className={`text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-relaxed transform transition-all duration-1500 ease-out ${
+          <h2 className={`text-black text-2xl md:text-3xl lg:text-4xl font-bold leading-relaxed transform transition-all duration-1500 ease-out ${
             textVisible 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-12'
@@ -109,6 +109,7 @@ const home = () => {
           </h2>
         </div>
       </section>      {/* Sección de marcas */}
+      {/*
       <section className="w-full bg-white dark:bg-[#555555] py-16 px-8">
         <div className="max-w-6xl mx-auto text-center">
           <h2 ref={brandsRef} className={`text-black dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-12 transform transition-all duration-1500 ease-out ${
@@ -119,8 +120,8 @@ const home = () => {
             Marcas
           </h2>
           
-          {/* contenedor marcas */}
-          <div className="max-w-4xl mx-auto">            {/* Logos */}
+          contenedor marcas 
+          <div className="max-w-4xl mx-auto">            Logos 
             <div className="flex justify-center items-center gap-20 md:gap-32 mb-8">
               {getCurrentBrands().map((marca, index) => (
                 <a
@@ -165,6 +166,7 @@ const home = () => {
           </div>
         </div>
       </section>
+      */}
     </div>
   )
 }
