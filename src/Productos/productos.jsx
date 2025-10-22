@@ -189,20 +189,20 @@ const renderSkeleton = () => (
           </div>
           
           {/* Ttxt cargando */}
-          <p className="text-gray-600 text-xs sm:text-sm font-medium -mt-1">Cargando...</p>
+          <p className="text-gray-600 text-xs sm:text-sm font-sans font-medium -mt-1">Cargando...</p>
         </div>
       </div>
     </StyledWrapper>
   </div>
 );return (
     <div className="py-6 sm:py-8 md:py-12 flex flex-col gap-4 sm:gap-6 items-center px-4 sm:px-6 md:px-10 lg:px-16 xl:px-[25dvh]">      <div className="flex flex-col sm:flex-row items-start sm:items-center w-full justify-between gap-4 sm:gap-0">
-        <h2 className="text-xl sm:text-2xl font-bold mt-2 sm:mt-6">Catálogo de Maquinaria</h2>
+        <h2 className="lg:text-4xl md:text-3xl sm:text-2xl font-sans font-bold mt-2 sm:mt-6">Catálogo de Maquinaria</h2>
         <div className="dropdown-container relative flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
           {/* Campo de búsqueda */}
           <input
             type="text"
             placeholder="Buscar por nombre"
-            className="px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white w-full sm:w-auto"
+            className="px-4 py-2 font-sans rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white w-full sm:w-auto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />          <button
@@ -211,7 +211,7 @@ const renderSkeleton = () => (
               dropdownOpen ? "rounded-t-md" : "rounded-md"
             } bg-white dark:text-white dark:bg-black w-full sm:w-auto`}
           >
-            <span className="font-bold">{filtroSingular[filtroTipo]}</span>
+            <span className="font-sans font-medium">{filtroSingular[filtroTipo]}</span>
             <img
               src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"}
               alt="Filtro"
@@ -220,7 +220,7 @@ const renderSkeleton = () => (
           </button>
 
           {dropdownOpen && (
-            <ul className="absolute right-0 sm:-right-[81px] top-[38px] sm:top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
+            <ul className="absolute font-sans font-medium right-0 sm:-right-[76px] top-[38px] sm:top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
               {opciones.map((opcion) => (
                 <li
                   key={opcion.value}
@@ -229,7 +229,7 @@ const renderSkeleton = () => (
                     setDropdownOpen(false);
                   }}
                   className={`px-4 py-3 sm:py-2 text-center sm:text-left cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                    filtroTipo === opcion.value ? "font-bold text-red-600" : ""
+                    filtroTipo === opcion.value ? "font-sans text-red-600" : ""
                   }`}
                 >
                   {opcion.label}
@@ -252,11 +252,17 @@ const renderSkeleton = () => (
     // Si ya terminó de cargar, muestra las maquinarias reales
     maquinariasFiltradas.map((maquina) => (
           <div className="flex flex-col items-center gap-1 mx-auto" key={maquina.id}>
-            <h3 className="text-sm sm:text-md font-bold text-gray-800 dark:text-gray-400 text-center">
+            <h3 className="text-sm sm:text-md font-sans font-bold text-gray-800 dark:text-gray-400 text-center">
               {maquina.modelo}
             </h3>
             <StyledWrapper>
               <div className="card">
+                <a
+                      href={`https://candelur-backend-1.onrender.com/${maquina.ficha_tecnica_path}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-sans font-medium uppercase text-xs sm:text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out w-full h-full flex flex-col items-center justify-center"
+                    >
                 {/* Imágenes */}
                 <div className="w-full h-full flex flex-col items-center justify-center">
                   {imagenesPorMaquina[maquina.id]?.length > 0 ? (
@@ -267,27 +273,24 @@ const renderSkeleton = () => (
                       loading="lazy"
                     />
                   ) : (
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 font-sans text-sm">
                       Sin imagen disponible
                     </p>
                   )}
                 </div>                {/* Botón ficha técnica */}
                 {maquina.ficha_tecnica_path ? (
                   <div className="flex item-center justify-center">
-                    <a
-                      href={`https://candelur-backend-1.onrender.com/${maquina.ficha_tecnica_path}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="uppercase text-xs sm:text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out bg-gray-100 dark:bg-gray-200 px-3 py-1 rounded-full"
+                    <p
                     >
                       Ver ficha técnica
-                    </a>
+                    </p>
                   </div>
                 ) : (
                   <p className="text-gray-400 text-xs sm:text-sm mt-2 dark:text-white">
                     Ficha técnica no disponible
                   </p>
                 )}
+              </a>
               </div>
             </StyledWrapper>
           </div>

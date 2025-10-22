@@ -27,12 +27,12 @@ const Card = ({ maquinarias }) => {
                 href={`https://candelur.com.uy/${maquina.ficha_tecnica_path}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-block text-blue-500 hover:underline text-sm"
+                className="mt-3 inline-block font-sans text-blue-500 hover:underline text-sm"
               >
                 🔍 Ver Ficha Técnica
               </a>
             ) : (
-              <p className="text-gray-400 text-sm mt-2">
+              <p className="text-gray-400 font-sans text-sm mt-2">
                 Ficha técnica no disponible
               </p>
             )}

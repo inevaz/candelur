@@ -14,7 +14,7 @@ import WhatsAppButton from './components/WhatsappButton.jsx'
 function App() {
   return (
     <BrowserRouter>
-      <div className="w-full flex flex-col bg-[#CECECE] dark:bg-[#3A3A3A]">
+      <div className="w-full flex flex-col bg-[#CECECE] dark:bg-[#141414]">
         <Navbar />
         <ScrollToTop />
         <main className="flex-grow pt-10">

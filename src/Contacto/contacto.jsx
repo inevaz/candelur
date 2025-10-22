@@ -21,21 +21,21 @@ const Contacto = () => {
       </div>
       
       {/* texto para el loading del mapa */}
-      <p className="text-gray-600 text-sm font-medium">Cargando mapa...</p>
+      <p className="text-gray-600 text-sm font-sans font-medium">Cargando mapa...</p>
     </div>
   );  return (
     <div className="px-4 sm:px-8 md:px-[10dvh] lg:px-[15dvh] py-10 sm:py-20 flex w-full flex-col gap-8 md:gap-14">
       <div className="flex w-full flex-col md:flex-row items-start md:items-center justify-between gap-10 md:gap-6">
         <div className="w-full flex flex-col gap-6">
-          <h1 className="font-krub h-10 font-bold text-2xl sm:text-3xl">
+          <h1 className="font-sans h-10 font-bold text-2xl sm:text-3xl">
             Formulario de contacto
           </h1>
           <ContactForm />
         </div>
         <div className="w-full h-full flex flex-col text-justify justify-between gap-6">
           <div className="h-10 flex flex-col justify-between">
-            <h1 className="font-krub font-bold text-3xl">Ubicación</h1>
-            <p className="font-krub pt-1">
+            <h1 className="font-sans font-bold text-3xl">Ubicación</h1>
+            <p className="font-sans pt-1">
               Av. Cachimba del Rey 396 - Maldonado
             </p>
           </div>          <div className="h-full gap-2 flex flex-col justify-between">
@@ -54,7 +54,7 @@ const Contacto = () => {
           </div>
         </div>
       </div>      <div className="flex flex-col gap-6 sm:gap-10">
-        <h2 className="font-krub font-bold text-2xl sm:text-3xl">Más formas de contacto</h2>
+        <h2 className="font-sans font-bold text-2xl sm:text-3xl">Más formas de contacto</h2>
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 w-full pl-0 sm:pl-2">
           <div className="flex gap-4 sm:gap-5 items-center">
             <svg
@@ -72,7 +72,7 @@ const Contacto = () => {
               />
             </svg>
 
-            <p className="font-krub text-sm sm:text-base">info@candelur.com.uy</p>
+            <p className="font-sans text-sm sm:text-base">info@candelur.com.uy</p>
           </div>
           <div className="flex gap-4 sm:gap-5 items-center">
             <svg
@@ -89,7 +89,7 @@ const Contacto = () => {
                 d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-            <p className="font-krub text-sm sm:text-base">Lunes a Viernes de 08:00 a 18:00hrs</p>
+            <p className="font-sans text-sm sm:text-base">Lunes a Viernes de 08:00 a 18:00hrs</p>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-32 w-full pl-0 sm:pl-2">
@@ -110,7 +110,7 @@ const Contacto = () => {
                 stroke-linejoin="round"
               />
             </svg>
-            <p className="font-krub">096 388 002</p>
+            <p className="font-sans">096 388 002</p>
           </div>
           <div className="flex gap-5 items-center">
             <svg
@@ -129,7 +129,7 @@ const Contacto = () => {
                 stroke-linejoin="round"
               />
             </svg>
-            <p className="font-krub">(598) 4224 2444</p>
+            <p className="font-sans">(598) 4224 2444</p>
           </div>
         </div>
       </div>

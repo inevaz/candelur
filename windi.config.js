@@ -1,4 +1,3 @@
-// windi.config.js
 export default {
   darkMode: 'class',
   extract: {
@@ -6,13 +5,9 @@ export default {
   },
   theme: {
     fontFamily: {
-      sans: ['Krub', 'sans-serif'],
+      sans: ['UnityHeadline', 'sans-serif'],
     },
-    extend: {
-      fontFamily: {
-      krub: ['Krub', 'sans-serif'],
-    },
-    },
+    extend: {},
   },
   plugins: [],
 }

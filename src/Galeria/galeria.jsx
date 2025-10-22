@@ -77,7 +77,7 @@ const Galeria = () => {
       const data = await response.json();
       // Transforma el array de nombres en objetos { src, name }
       const imgs = (data.images || []).map(name => ({
-        src: `https://candelur-backend-1.onrender.com/galery/${name}`,
+        src: `https://candelur-backend-1.onrender.com/img/galery/${name}`,
         name
       }));
       setAllImages(imgs);
@@ -128,11 +128,11 @@ const Galeria = () => {
               dropdownOpen ? "rounded-t-md" : "rounded-md"
             } bg-white dark:text-white dark:bg-black`}
           >
-            <span className="font-bold">{filter === "Todos" ? "Filtrar" : filter}</span>
+            <span className="font-medium font-sans">{filter === "Todos" ? "Filtrar" : filter}</span>
 
             <img src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"} alt="Filtro" className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>          {dropdownOpen && (
-            <ul className="absolute z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
+            <ul className="absolute font-sans z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
               {opciones.map((opcion) => (
                 <li
                   key={opcion.value}
