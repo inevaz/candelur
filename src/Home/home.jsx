@@ -36,7 +36,7 @@ const home = () => {
     };
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const observers = imageRefs.map((ref, idx) => {
       return new IntersectionObserver(
         (entries) => {
@@ -69,96 +69,123 @@ const home = () => {
   return (
     <div className="w-full h-full bg-[#F5F5F5] dark:bg-[#0A0A0A]">
       <Slider /> {/*seccion texto */}
-      <section
-        className="w-full dark:bg-[#0A0A0A] flex flex-col gap-42 mt-4 h-full pb-24">
-
-          <div
+      <section className="w-full dark:bg-[#0A0A0A] flex flex-col mt-4 h-full pb-24">
+        <div
           ref={textRef}
-          className="w-full bg-black dark:bg-[#ADADAD] h-[600px] mx-auto text-center flex items-center justify-center"
-        >
+          className="w-full bg-black dark:bg-[#ADADAD] h-[450px] md:h-[600px] mx-auto text-center flex items-center justify-center">
           <h2
             style={{ willChange: "transform, opacity" }}
-            className={`text-white dark:text-black text-center px-32 sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-relaxed transform transition-all duration-1000 ease-out ${
+            className={`text-white dark:text-black text-center px-32 text-2xl md:text-4xl lg:text-5xl font-bold leading-relaxed transform transition-all duration-1000 ease-out ${
               textVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-12"
-            }`}
-          >
+            }`}>
             {fullText}
           </h2>
         </div>
-
-
-         {/* Imagen 1 */}
-        <div className="w-full h-[700px] relative">
-          <div
-            ref={imageRefs[0]}
-            className={`absolute w-[60%] top-30 right-[15dvw] rounded-xl overflow-hidden shadow-lg transition-all duration-1000 ease-out
-              ${imageVisible[0] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-          >
-            <img
-              src={"./img/Candelur2.jpg"}
-              alt={"Candelur_1"}
-              className="object-fit w-full h-[600px]"
-            />
+        <div className="h-full w-full flex flex-col items-center justify-center gap-18 mt-24">
+          {/* Imagen 1 */}
+          <div className="w-[1300px] h-[700px] relative">
+            <div
+              ref={imageRefs[0]}
+              className={`imagen-full-1295 absolute w-[90%] right-0 bottom-0 rounded-xl overflow-hidden transition-all duration-700 ease-out
+              ${
+                imageVisible[0]
+                  ? "opacity-100 translate-y-0 "
+                  : "opacity-0 translate-y-12"
+              }`}>
+              <img
+                src={"./img/Candelur1.jpg"}
+                alt={"Candelur_1"}
+                className="object-fit w-full max-h-[600px]"
+                style={{ transform: "scaleX(-1)" }}
+              />
+            </div>
+            <div className="texto-full-1295 dark:text-black dark:bg-[#ADADAD] absolute top-0 left-0 flex rounded-xl shadow-lg bg-white p-10 flex-col gap-2 w-[500px]">
+              <h2 className="font-sans font-black text-xl">
+                Nuestro propósito es impulsar el crecimiento de la industria con
+                soluciones integrales y confiables.
+              </h2>
+              <p className="font-sans font-medium">
+                Motivados por las necesidades del sector, el apoyo de nuestros
+                clientes y la experiencia de casi 20 años en el rubro por parte
+                de nuestros fundadores, ampliamos nuestros servicios para
+                ofrecer una propuesta más completa. Incorporamos la importación
+                y venta de autoelevadores y plataformas, y diversificamos el
+                área de arrendamiento con una amplia gama de equipos:
+                plataformas y canastos para trabajos en altura, tijeras, brazos
+                telescópicos y articulados, plataformas personales, grúas,
+                hidrogrúas, camiones de transporte, apiladores y portapallets,
+                entre otros.
+              </p>
+            </div>
           </div>
-          <div className="dark:text-black dark:bg-[#ADADAD] absolute top-0 left-[15dvw] flex rounded-xl shadow-lg bg-white p-12 flex-col gap-4 w-[28%]">
-            <h2 className="font-sans font-black text-xl">
-              Nuestro propósito es impulsar el crecimiento de la industria con soluciones integrales y confiables.
-            </h2>
-            <p className="font-sans font-medium">
-              Motivados por las necesidades del sector, el apoyo de nuestros clientes y la experiencia de casi 20 años en el rubro por parte de nuestros fundadores, ampliamos nuestros servicios para ofrecer una propuesta más completa. Incorporamos la importación y venta de autoelevadores y plataformas, y diversificamos el área de arrendamiento con una amplia gama de equipos: plataformas y canastos para trabajos en altura, tijeras, brazos telescópicos y articulados, plataformas personales, grúas, hidrogrúas, camiones de transporte, apiladores y portapallets, entre otros.
-            </p>
+
+          <div className="w-[1300px] h-[700px] relative">
+            {/* Imagen 2 */}
+            <div
+              ref={imageRefs[1]}
+              className={`imagen-full-1295 absolute w-[90%] left-0 bottom-0 rounded-xl overflow-hidden transition-all duration-700 ease-out
+        imageVisible[1]
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-12"
+      }`}>
+              <img
+                src={"./img/Candelur3.jpg"}
+                alt={"Candelur_1"}
+                className="object-fit w-full max-h-[570px]"
+              />
+            </div>
+            {/* Texto */}
+            <div className="texto-full-1295 dark:text-black dark:bg-[#ADADAD] absolute top-0 right-0 flex rounded-xl shadow-lg bg-white p-10 flex-col gap-2 w-[430px]">
+              <h2 className="font-sans font-black text-xl">
+                Nuestro compromiso es brindar soluciones seguras y eficientes
+                para cada tipo de traslado.
+              </h2>
+              <p className="font-sans font-medium">
+                Nos especializamos en la carga, transporte, descarga y
+                colocación de todo tipo de mercaderías, incluso en lugares de
+                difícil acceso. Gracias a nuestra experiencia y equipamiento,
+                garantizamos un servicio confiable para una amplia variedad de
+                necesidades: desde contenedores, equipos y herramientas hasta
+                obras de arte, cajas fuertes, maquinaria, calderas, vehículos,
+                embarcaciones y estructuras livianas como casitas infantiles.
+              </p>
+            </div>
+          </div>
+
+          {/* Imagen 3 */}
+          <div className="w-[1300px] h-[700px] relative">
+            <div
+              ref={imageRefs[2]}
+              className={`imagen-full-1295 absolute w-[90%] right-0 bottom-0 rounded-xl overflow-hidden transition-all duration-700 ease-out
+              ${
+                imageVisible[2]
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-12"
+              }`}>
+              <img
+                src={"./img/Candelur2.jpg"}
+                alt={"Candelur_3"}
+                className="object-fit w-full max-h-[600px]"
+              />
+            </div>
+            <div className="texto-full-1295 dark:text-black dark:bg-[#ADADAD] absolute top-0 left-0 flex rounded-xl shadow-lg bg-white p-10 flex-col gap-2 w-[425px]">
+              <h2 className="font-sans font-black text-xl">
+                Nuestra alianza potencia el servicio y amplía nuestras
+                soluciones.
+              </h2>
+              <p className="font-sans font-medium">
+                Gracias a una alianza comercial, ofrecemos servicios de alquiler
+                de manipuladores telescópicos MANITOU, minicargadores BOBCAT y
+                compresores de aire. Esta colaboración nos permite brindar
+                equipos confiables, eficientes y adaptados a las distintas
+                necesidades de nuestros clientes, fortaleciendo nuestra
+                capacidad de respuesta en cada proyecto.
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* Imagen 2 */}
-        <div className="w-full h-[700px] relative">
-          <div
-            ref={imageRefs[1]}
-            className={`absolute w-[60%] top-30 left-[15dvw] rounded-xl overflow-hidden shadow-lg transition-all duration-1000 ease-out
-              ${imageVisible[1] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-          >
-            <img
-              src={"./img/Candelur3.jpg"}
-              alt={"Candelur_1"}
-              className="object-fit w-full h-[600px]"
-            />
-          </div>
-          <div className="dark:text-black dark:bg-[#ADADAD] absolute top-0 right-[15dvw] flex rounded-xl shadow-lg bg-white p-12 flex-col gap-2 w-[24%]">
-            <h2 className="font-sans font-black text-xl">
-              Nuestro compromiso es brindar soluciones seguras y eficientes para cada tipo de traslado.
-            </h2>
-            <p className="font-sans font-medium">
-              Nos especializamos en la carga, transporte, descarga y colocación de todo tipo de mercaderías, incluso en lugares de difícil acceso. Gracias a nuestra experiencia y equipamiento, garantizamos un servicio confiable para una amplia variedad de necesidades: desde contenedores, equipos y herramientas hasta obras de arte, cajas fuertes, maquinaria, calderas, vehículos, embarcaciones y estructuras livianas como casitas infantiles.
-            </p>
-          </div>
-        </div>
-
-        {/* Imagen 3 */}
-        <div className="w-full h-[700px] relative">
-          <div
-            ref={imageRefs[2]}
-            className={`absolute w-[60%] top-30 right-[15dvw] rounded-xl overflow-hidden shadow-lg transition-all duration-700 ease-out
-              ${imageVisible[2] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-          >
-            <img
-              src={"./img/Candelur1.jpg"}
-              alt={"Candelur_1"}
-              className="object-fit w-full h-[600px]"
-            />
-          </div>
-          <div className="dark:text-black dark:bg-[#ADADAD] absolute top-0 left-[15dvw] flex rounded-xl shadow-lg bg-white p-12 flex-col gap-2 w-[22%]">
-            <h2 className="font-sans font-black text-xl">
-              Nuestra alianza potencia el servicio y amplía nuestras soluciones.
-            </h2>
-            <p className="font-sans font-medium">
-              Gracias a una alianza comercial, ofrecemos servicios de alquiler de manipuladores telescópicos (Manitou), minicargadores (Bobcat) y compresores de aire. Esta colaboración nos permite brindar equipos confiables, eficientes y adaptados a las distintas necesidades de nuestros clientes, fortaleciendo nuestra capacidad de respuesta en cada proyecto.
-            </p>
-          </div>
-        </div>
-
-        
       </section>{" "}
       {/* Sección de marcas */}
       {/*

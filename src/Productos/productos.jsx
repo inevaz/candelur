@@ -3,9 +3,9 @@ import { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import Lottie from '@lottielab/lottie-player/react';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import Lottie from "@lottielab/lottie-player/react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Productos = () => {
   const [maquinarias, setMaquinarias] = useState([]);
@@ -54,19 +54,20 @@ const Productos = () => {
 
     observer.observe(htmlElement, {
       attributes: true,
-    });    return () => observer.disconnect();
+    });
+    return () => observer.disconnect();
   }, [isDark]);
-  
+
   // Cerrar dropdown al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownOpen && !event.target.closest('.dropdown-container')) {
+      if (dropdownOpen && !event.target.closest(".dropdown-container")) {
         setDropdownOpen(false);
       }
     };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownOpen]);
 
   // precarga la animación lottie para que no demore mucho en aparecer
@@ -84,7 +85,9 @@ const Productos = () => {
   useEffect(() => {
     const fetchMaquinarias = async () => {
       try {
-        const response = await fetch("https://candelur-backend-1.onrender.com/maquinarias");
+        const response = await fetch(
+          "https://candelur-backend-1.onrender.com/maquinarias"
+        );
         if (!response.ok)
           throw new Error(`Error al cargar los datos: ${response.statusText}`);
         const data = await response.json();
@@ -113,7 +116,9 @@ const Productos = () => {
   // Función reutilizable para obtener imágenes de una máquina
   const fetchImagenes = async (maquinaId) => {
     try {
-      const response = await fetch(`https://candelur-backend-1.onrender.com/imagenes/${maquinaId}`);
+      const response = await fetch(
+        `https://candelur-backend-1.onrender.com/imagenes/${maquinaId}`
+      );
       if (!response.ok)
         throw new Error(
           `No se encontraron imágenes para la máquina ${maquinaId}`
@@ -163,140 +168,152 @@ const Productos = () => {
     camion_grua: "Camión grúa",
   };
 
+  const renderSkeleton = () => (
+    <div className="flex flex-col items-center gap-1">
+      {/* Skeleton del titulo*/}
+      <Skeleton
+        height={18}
+        width={110}
+        baseColor={isDark ? "#4a4a4a" : "#f0f0f0"}
+        highlightColor={isDark ? "#6a6a6a" : "#e0e0e0"}
+      />
 
-const renderSkeleton = () => (
-  <div className="flex flex-col items-center gap-1">
-    {/* Skeleton del titulo*/}
-    <Skeleton 
-      height={18} 
-      width={110} 
-      baseColor={isDark ? "#4a4a4a" : "#f0f0f0"} 
-      highlightColor={isDark ? "#6a6a6a" : "#e0e0e0"} 
-    />
-    
-    <StyledWrapper>
-      <div className="card skeleton-card">
-        {/* contenedor principal */}
-        <div className="w-full h-full flex flex-col items-center justify-center bg-white">
-          {/* animacion de lottie */}
-          <div className="w-14 h-14 sm:w-16 sm:h-16 mb-2 flex items-center justify-center">
-            <Lottie 
-              src="https://cdn.lottielab.com/l/Ez2VYXWRieFjeK.json"
-              autoplay
-              loop
-              style={{ width: '100%', height: '100%' }}
-            />
+      <StyledWrapper>
+        <div className="card skeleton-card">
+          {/* contenedor principal */}
+          <div className="w-full h-full flex flex-col items-center justify-center bg-white">
+            {/* animacion de lottie */}
+            <div className="w-14 h-14 sm:w-16 sm:h-16 mb-2 flex items-center justify-center">
+              <Lottie
+                src="https://cdn.lottielab.com/l/Ez2VYXWRieFjeK.json"
+                autoplay
+                loop
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+
+            {/* Ttxt cargando */}
+            <p className="text-gray-600 text-xs sm:text-sm font-sans font-medium -mt-1">
+              Cargando...
+            </p>
           </div>
-          
-          {/* Ttxt cargando */}
-          <p className="text-gray-600 text-xs sm:text-sm font-sans font-medium -mt-1">Cargando...</p>
         </div>
-      </div>
-    </StyledWrapper>
-  </div>
-);return (
-    <div className="py-6 sm:py-8 md:py-12 flex flex-col gap-4 sm:gap-6 items-center px-4 sm:px-6 md:px-10 lg:px-16 xl:px-[25dvh]">      <div className="flex flex-col sm:flex-row items-start sm:items-center w-full justify-between gap-4 sm:gap-0">
-        <h2 className="lg:text-4xl md:text-3xl sm:text-2xl font-sans font-bold mt-2 sm:mt-6">Catálogo de Maquinaria</h2>
-        <div className="dropdown-container relative flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-          {/* Campo de búsqueda */}
-          <input
-            type="text"
-            placeholder="Buscar por nombre"
-            className="px-4 py-2 font-sans rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white w-full sm:w-auto"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className={`flex items-center justify-between gap-2 px-4 py-2 ${
-              dropdownOpen ? "rounded-t-md" : "rounded-md"
-            } bg-white dark:text-white dark:bg-black w-full sm:w-auto`}
-          >
-            <span className="font-sans font-medium">{filtroSingular[filtroTipo]}</span>
-            <img
-              src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"}
-              alt="Filtro"
-              className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+      </StyledWrapper>
+    </div>
+  );
+
+  return (
+    <div className="py-6 sm:py-8 md:py-12 flex flex-col gap-4 sm:gap-6 items-center px-4 sm:px-6 md:px-10 lg:px-16 xl:px-[25dvh]">
+      {" "}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center w-full justify-between gap-4 sm:gap-0">
+        <div className="flex flex-col sm:flex-row w-full justify-between gap-4 sm:gap-0 items-start sm:items-center">
+          {/* Título */}
+          <div className="w-full sm:w-auto mb-2 sm:mb-0">
+            <h2 className="text-2xl md:text-3xl font-sans font-bold mt-2 sm:mt-6">
+  Catálogo de Maquinaria
+</h2>
+          </div>
+          {/* Input y filtro */}
+          <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <input
+              type="text"
+              placeholder="Buscar por nombre"
+              className="px-4 py-2 font-sans rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-black dark:text-white w-full sm:w-auto"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </button>
-
-          {dropdownOpen && (
-            <ul className="absolute font-sans font-medium right-0 sm:-right-[76px] top-[38px] sm:top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
-              {opciones.map((opcion) => (
-                <li
-                  key={opcion.value}
-                  onClick={() => {
-                    setFiltroTipo(opcion.value);
-                    setDropdownOpen(false);
-                  }}
-                  className={`px-4 py-3 sm:py-2 text-center sm:text-left cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                    filtroTipo === opcion.value ? "font-sans text-red-600" : ""
-                  }`}
-                >
-                  {opcion.label}
-                </li>
-              ))}
-            </ul>
-          )}
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`flex items-center justify-between gap-2 px-4 py-2 ${
+                dropdownOpen ? "rounded-t-md" : "rounded-md"
+              } bg-white dark:text-white dark:bg-black min-w-[116px]`}>
+              <span className="font-sans font-medium">
+                {filtroSingular[filtroTipo]}
+              </span>
+              <img
+                src={isDark ? "/img/filter_white.svg" : "/img/filter.svg"}
+                alt="Filtro"
+                className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+              />
+            </button>
+            {dropdownOpen && (
+              <ul className="absolute font-sans font-medium right-0 sm:-right-[76px] top-[38px] sm:top-[38px] z-10 bg-white dark:bg-black rounded-b-md rounded-tr-md shadow-lg w-full sm:w-48">
+                {opciones.map((opcion) => (
+                  <li
+                    key={opcion.value}
+                    onClick={() => {
+                      setFiltroTipo(opcion.value);
+                      setDropdownOpen(false);
+                    }}
+                    className={`px-4 py-3 sm:py-2 text-center sm:text-left cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                      filtroTipo === opcion.value
+                        ? "font-sans text-red-600"
+                        : ""
+                    }`}>
+                    {opcion.label}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
-
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
-  {loading || Object.keys(imagenesPorMaquina).length === 0 ? (
-    // Si está cargando o no hay imágenes cargadas, muestra skeletons
-    Array.from({ length: 8 }).map((_, index) => (
-      <div key={index} className="flex justify-center">
-        {renderSkeleton()}
-      </div>
-    ))
-  ) : (
-    // Si ya terminó de cargar, muestra las maquinarias reales
-    maquinariasFiltradas.map((maquina) => (
-          <div className="flex flex-col items-center gap-1 mx-auto" key={maquina.id}>
-            <h3 className="text-sm sm:text-md font-sans font-bold text-gray-800 dark:text-gray-400 text-center">
-              {maquina.modelo}
-            </h3>
-            <StyledWrapper>
-              <div className="card">
-                <a
+      <div className="grid grid-auto-fit grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
+        {loading || Object.keys(imagenesPorMaquina).length === 0
+          ? // Si está cargando o no hay imágenes cargadas, muestra skeletons
+            Array.from({ length: 8 }).map((_, index) => (
+              <div key={index} className="flex justify-center">
+                {renderSkeleton()}
+              </div>
+            ))
+          : // Si ya terminó de cargar, muestra las maquinarias reales
+            maquinariasFiltradas.map((maquina) => (
+              <div
+                className="flex flex-col items-center gap-1 mx-auto"
+                key={maquina.id}>
+                <h3 className="text-sm sm:text-md font-sans font-bold text-gray-800 dark:text-gray-400 text-center">
+                  {maquina.modelo}
+                </h3>
+                <StyledWrapper>
+                  <div className="card">
+                    <a
                       href={`https://candelur-backend-1.onrender.com/${maquina.ficha_tecnica_path}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-sans font-medium uppercase text-xs sm:text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out w-full h-full flex flex-col items-center justify-center"
-                    >
-                {/* Imágenes */}
-                <div className="w-full h-full flex flex-col items-center justify-center">
-                  {imagenesPorMaquina[maquina.id]?.length > 0 ? (
-                    <img
-                      src={`https://candelur-backend-1.onrender.com/${imagenesPorMaquina[maquina.id][0]}`}
-                      alt={`Imagen de ${maquina.modelo}`}
-                      className="h-full max-h-[210px] sm:max-h-[250px] max-w-[200px] sm:max-w-[240px] p-2"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <p className="text-gray-500 font-sans text-sm">
-                      Sin imagen disponible
-                    </p>
-                  )}
-                </div>                {/* Botón ficha técnica */}
-                {maquina.ficha_tecnica_path ? (
-                  <div className="flex item-center justify-center">
-                    <p
-                    >
-                      Ver ficha técnica
-                    </p>
+                      className="font-sans font-medium uppercase text-xs sm:text-sm dark:text-black hover:text-[#e31e24] transition duration-150 ease-in-out w-full h-full flex flex-col items-center justify-center">
+                      {/* Imágenes */}
+                      <div className="w-full h-full flex flex-col items-center justify-center">
+                        {imagenesPorMaquina[maquina.id]?.length > 0 ? (
+                          <img
+                            src={`https://candelur-backend-1.onrender.com/${
+                              imagenesPorMaquina[maquina.id][0]
+                            }`}
+                            alt={`Imagen de ${maquina.modelo}`}
+                            className="h-full max-h-[210px] sm:max-h-[250px] max-w-[200px] sm:max-w-[240px] p-2"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <p className="text-gray-500 font-sans text-sm">
+                            Sin imagen disponible
+                          </p>
+                        )}
+                      </div>{" "}
+                      {/* Botón ficha técnica */}
+                      {maquina.ficha_tecnica_path ? (
+                        <div className="flex item-center justify-center">
+                          <p>Ver ficha técnica</p>
+                        </div>
+                      ) : (
+                        <p className="text-gray-400 text-xs sm:text-sm mt-2 dark:text-white">
+                          Ficha técnica no disponible
+                        </p>
+                      )}
+                    </a>
                   </div>
-                ) : (
-                  <p className="text-gray-400 text-xs sm:text-sm mt-2 dark:text-white">
-                    Ficha técnica no disponible
-                  </p>
-                )}
-              </a>
+                </StyledWrapper>
               </div>
-            </StyledWrapper>
-          </div>
-        ))
-  )}
-</div>
+            ))}
+      </div>
     </div>
   );
 };
@@ -322,7 +339,7 @@ const StyledWrapper = styled.div`
     color: black;
     flex-direction: column;
     padding: 5px;
-    
+
     @media (min-width: 640px) {
       width: 250px;
       height: 300px;

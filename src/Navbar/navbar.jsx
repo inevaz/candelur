@@ -89,7 +89,7 @@ const Navbar = () => {
             <div className="hidden md:flex items-center">
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full text-black dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 focus:outline-none"
+              className="p-2 rounded-full font-sans font-medium dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 focus:outline-none"
               aria-label="Toggle dark mode"
             >
               <FontAwesomeIcon 
@@ -103,7 +103,7 @@ const Navbar = () => {
             {/*menu hamburguesa*/}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-black dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 focus:outline-none"
+              className="p-2 rounded-md font-sans font-medium dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 focus:outline-none"
               aria-label="Toggle mobile menu"
             >
               <FontAwesomeIcon 
@@ -120,28 +120,28 @@ const Navbar = () => {
             <div className="flex flex-col pt-2 pb-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
               <Link 
                 to="/productos" 
-                className="block px-4 py-2 text-base font-medium text-black dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-500 no-underline"
+                className="block px-4 py-2 font-sans font-medium text-black dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-500 no-underline"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Productos
               </Link>
               <Link 
                 to="/galeria" 
-                className="block px-4 py-2 text-base font-medium text-black dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-500 no-underline"
+                className="block px-4 py-2 font-sans font-medium text-black dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-500 no-underline"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Galería
               </Link>
               <Link 
                 to="/contacto" 
-                className="block px-4 py-2 text-base font-medium text-black dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-500 no-underline"
+                className="block px-4 py-2 font-sans font-medium text-black dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-500 no-underline"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contacto
               </Link>
               
               <div className="px-4 py-2 flex items-center justify-between border-t border-gray-200 dark:border-gray-700">
-                <span className="text-base font-medium text-black dark:text-gray-300">Modo oscuro</span>
+                <span className="font-sans font-medium text-black dark:text-gray-300">Modo oscuro</span>
                 <button
                   onClick={toggleDarkMode}
                   className="p-2 rounded-full text-black dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 focus:outline-none"

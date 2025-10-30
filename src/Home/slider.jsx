@@ -4,7 +4,6 @@ import { ServiceData } from "../index";
 import { Link } from "react-router-dom";
 
 const Slider = () => {
-
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     contain: true,
@@ -46,7 +45,9 @@ const Slider = () => {
       stop();
       autoplayRef.current = setInterval(() => {
         if (!emblaApi) return;
-        const nextIndex = (emblaApi.selectedScrollSnap() + 1) % emblaApi.scrollSnapList().length;
+        const nextIndex =
+          (emblaApi.selectedScrollSnap() + 1) %
+          emblaApi.scrollSnapList().length;
         // duration en ms (ej: 600). Ajustá este valor para la duración de la animación.
         emblaApi.scrollTo(nextIndex, { duration: 1000 });
       }, 5000); // intervalo entre cambios (ms)
@@ -81,30 +82,31 @@ const Slider = () => {
                 />
                 <div className="absolute inset-0 bg-black opacity-45"></div>
                 <div
-                  className={`${infoStyles[item.styles]} flex flex-col gap-1 sm:gap-2 items-center justify-center ${
+                  className={`${
+                    infoStyles[item.styles]
+                  } flex flex-col gap-1 sm:gap-2 items-center justify-center ${
                     item.title === "Plataformas"
                       ? "max-w-[200px] sm:max-w-[250px] md:max-w-none"
                       : ""
-                  }`}
-                >
+                  }`}>
                   <h1
-                    className={`text-2xl sm:text-3xl md:text-5xl font-sans  font-medium text-white ${
+                    className={`text-2xl md:text-3xl lg:text-5xl font-sans font-medium text-white ${
                       item.title === "Plataformas"
                         ? "text-left sm:text-left md:text-center"
                         : "text-center"
-                    }`}
-                  >
+                    }`}>
                     {item.title}
                   </h1>
                   <Link
                     to="/productos"
-                    state={{ filtro: item.filter.toLowerCase().replace(/\s/g, "_") }}
+                    state={{
+                      filtro: item.filter.toLowerCase().replace(/\s/g, "_"),
+                    }}
                     className={`w-full max-w-[150px] sm:max-w-[200px] ${
                       item.title === "Plataformas"
                         ? "self-start sm:self-start md:self-center"
                         : ""
-                    }`}
-                  >
+                    }`}>
                     <div className="bg-white text-center font-sans text-sm sm:text-md w-full rounded-full p-1 sm:p-1.5 font-semibold hover:bg-red-600 hover:text-white dark:text-black transition-colors">
                       Ver productos
                     </div>
@@ -123,7 +125,9 @@ const Slider = () => {
             key={idx}
             onClick={() => emblaApi && emblaApi.scrollTo(idx)}
             className={`w-3 sm:w-3.5 h-3 sm:h-3.5 rounded-full transition-opacity duration-500 ${
-              selected === idx ? "bg-red-500 opacity-100" : "bg-gray-400 opacity-70"
+              selected === idx
+                ? "bg-red-500 opacity-100"
+                : "bg-gray-400 opacity-70"
             }`}
             aria-label={`Ir a slide ${idx + 1}`}
           />
