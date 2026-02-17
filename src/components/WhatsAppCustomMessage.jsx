@@ -14,6 +14,7 @@ export default function WhatsAppCustomMessage({ filtroTipo }) {
     todos: "equipo",
   };
 
+  // Hola
   const handleSend = () => {
     const tipo = tipoTexto[filtroTipo] || "equipo";
     const msg = `Hola, me interesaría saber más sobre la ${tipo} ${modelo}.`;
